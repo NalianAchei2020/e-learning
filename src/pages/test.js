@@ -1,103 +1,85 @@
-import { useContext, useEffect } from "react";
-import {StoreContext} from '../Context/store'
+import React, { useEffect, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { works } from '../data';
 
-function Test() {
-    const {state, dispatch} = useContext(StoreContext);
-  
-    const { studentRequests, reviewCount, click, status,  users } = state;
-  
-    useEffect(() => {
-      localStorage.setItem('studentRequests', JSON.stringify(studentRequests));
-    }, [studentRequests]);
-  
-    useEffect(() => {
-      localStorage.setItem('reviewCount', reviewCount);
-    }, [reviewCount]);
-
-    useEffect(() => {
-        localStorage.setItem('click', click);
-      }, [click]);
-  
-      
-      useEffect(() => {
-        localStorage.setItem('status', status);
-      }, [status]);
-    
-  
-    const approved = () => {
-      dispatch({ type: 'SET_STATUS', payload: 'Submit' });
-    };
-  
-    const requiredChanges = () => {
-      dispatch({ type: 'SET_STATUS', payload: 'Required Changes' });
-      dispatch({ type: 'SET_CLICK', payload: false });
-    };
-  
-    const request = () => {
-      if (reviewCount === 0) {
-        dispatch({ type: 'SET_STATUS', payload: 'You have exhausted all your reviews' });
-      } else {
-        const id = Math.floor(Math.random() * 1000);
-        const student = { name: 'Rose', task: 'Mapping', id: id, reviewNum: reviewCount };
-        dispatch({ type: 'SET_STUDENT_REQUESTS', payload: [...studentRequests, student] });
-        dispatch({ type: 'DECREMENT_REVIEW_COUNT' });
-        dispatch({ type: 'SET_CLICK', payload: true });
-        dispatch({ type: 'SET_STATUS', payload:' "pending" '});
-        console.log(studentRequests)
-      }
-    };
-
-    const handleRegisterSubmit = (event) => {
-        event.preventDefault();
-        const name = event.target.elements.name.value;
-        const role = event.target.elements.role.value;
-        const id = Math.floor(Math.random() * 1000);
-        const user = { name: name, role: role, id: id };
-        console.log(user);
-        dispatch({ type: 'ADD_USER', payload: [...users, user] });
-        event.target.reset();
-        console.log(users)
-      };
-  
-    return (
-        <div className="App">
-          <section className='student'><br/><br/>
-            <h1>Student Dashboard</h1>
-            <span>{reviewCount}</span><br/>
-            <span>{status}</span><br/>
-            <span>{!click ? <button onClick={request}>Request</button> : <a href='#link'>View Submission</a>}</span>
-          </section>
-          <section className='reviewer'><br/><br/>
-            <h1>Review Dashboard</h1>
-            <span>Reviews: {studentRequests.map((request) => request.name).join(', ')}</span><br/>
-            <button onClick={approved}>Approved</button><br/>
-            <button onClick={requiredChanges}>Required Changes</button>
-          </section>
-
-          <section>
-          <h1>Admin Dashboard</h1>
-        <div>
-          <h1>Register</h1>
-          <form onSubmit={handleRegisterSubmit}> {/* wrap the inputs in a form */}
-            <input name='name' type='text' placeholder='name'/>
-            <select name="role">
-              <option></option>
-              <option value="student">Student</option>
-              <option value="reviewer">Code Reviewer</option>
-            </select>
-            <button type='submit'>submit</button>
-          </form>
-        </div>
-        <div>
-          <h1>Users</h1>
-          {users.map((user) => (
-        <li key={user.id}>{user.name} - {user.role}</li>
-      ))}
-        </div>
-        <button className="btn btn-primary">click</button>
-          </section>
-        </div>
+const Test = () => {
+  const [taskeds, setTaskeds] = useState([]);
+  useEffect(() => {
+    const allTasks = works.flatMap((module) =>
+      module.blocks.flatMap((block) => block.days.flatMap((day) => day.tasks))
     );
-  }
-  
-  export default Test;
+    setTaskeds(allTasks);
+  }, []);
+
+  const [tasks, setTasks] = useState([
+    { id: 1, name: 'Task 1', status: 'pending' },
+    { id: 2, name: 'Task 2', status: 'pending' },
+    { id: 3, name: 'Task 3', status: 'pending' },
+  ]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleDetailClick = (taskId) => {
+    setSelectedTask(tasks.find((task) => task.id === taskId));
+    setShowModal(true);
+    console.log(taskId);
+    console.log(selectedTask);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedTask(null);
+  };
+
+  const handleSubmitClick = (taskId) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, status: 'submitted' };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    handleCloseModal();
+  };
+
+  return (
+    <div>
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>
+            {task.name} - {task.status}
+            <button onClick={() => handleDetailClick(task.id)}>Detail</button>
+          </li>
+        ))}
+      </ul>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Task Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTask ? (
+            <div>
+              <p>Name: {selectedTask.name}</p>
+              <p>Status: {selectedTask.status}</p>
+            </div>
+          ) : (
+            <p>No task selected</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => handleSubmitClick(selectedTask.id)}
+          >
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
+
+export default Test;
