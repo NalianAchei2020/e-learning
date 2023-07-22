@@ -1,9 +1,10 @@
 import { StoreProvider } from './Context/store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Test from './pages/test';
-import Student from './pages/student';
+import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
+import StudentDashboard from './pages/test2';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
             <Route path="/codereviewer" element={<CodeReviewer />} />
           </Routes>
         </Router>
-        <Test />
+        <StudentDashboard />
+        <CodeReviewer />
       </StoreProvider>
     </div>
   );

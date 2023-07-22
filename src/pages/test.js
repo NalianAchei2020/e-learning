@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { works } from '../data';
+import { works } from './studentDashboad.js/Progress_section/data';
 
 const Test = () => {
   const [taskeds, setTaskeds] = useState([]);
