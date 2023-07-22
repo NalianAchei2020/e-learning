@@ -453,7 +453,8 @@ const Student = () => {
                                         className={`status ${
                                           task.type === 'Project'
                                             ? 'special-class'
-                                            : task.status === 'Completed'
+                                            : status[task.taskIndex] ===
+                                              'Completed'
                                             ? 'complete'
                                             : ''
                                         }`}
