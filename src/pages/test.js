@@ -60,7 +60,13 @@ const Test = () => {
           {selectedTask ? (
             <div>
               <p>Name: {selectedTask.name}</p>
-              <p>Status: {selectedTask.status}</p>
+              <p
+                className={
+                  selectedTask.status === 'submitted' ? 'submit' : 'statust'
+                }
+              >
+                Status: {selectedTask.status}
+              </p>
             </div>
           ) : (
             <p>No task selected</p>
