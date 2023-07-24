@@ -16,20 +16,14 @@ const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
     setProjectLink(e.target.value);
     setIsLinkValid(validateLinkFormat(e.target.value));
   };
-  /*
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Task:', taskLink);
-    console.log('Project Link:', projectLink);
-    console.log('Confirm Original Work:', confirmOriginalWork);
-  };*/
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onTaskSubmit(projectLink);
   };
 
   return (
-    <div>
+    <div className="requestForm">
       {selectedTask ? <p>{selectedTask.taskName}</p> : <p>No task selected</p>}
       <form onSubmit={handleSubmit}>
         <label>Activity Completed</label>
@@ -76,6 +70,8 @@ const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
             plagiarized.
           </span>
         </label>
+        <br />
+        <br />
         <Button variant="primary" type="submit" disabled={!isLinkValid}>
           Submit
         </Button>
