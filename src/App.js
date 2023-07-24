@@ -1,10 +1,9 @@
 import { StoreProvider } from './Context/store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Test from './pages/test';
+import RequestReviewForm from './pages/studentDashboad.js/Progress_section/requestReviewForm';
 import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
-import StudentDashboard from './pages/test2';
 
 function App() {
   return (
@@ -16,10 +15,9 @@ function App() {
             <Route path="/progress-section-link" element={<Student />} />
             <Route path="/attendance-section-link" element={<Student />} />
             <Route path="/codereviewer" element={<CodeReviewer />} />
+            <Route path="/requestReviewForm" element={<RequestReviewForm />} />
           </Routes>
         </Router>
-        <StudentDashboard />
-        <CodeReviewer />
       </StoreProvider>
     </div>
   );

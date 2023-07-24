@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardSection from './dashboard_section';
 import Attendance from './attendance';
 import HomeProgress from './Progress_section/home';
+import RequestReviewForm from './Progress_section/requestReviewForm';
 
 const Student = () => {
   //accessing tasks in a useState
@@ -101,6 +102,7 @@ const Student = () => {
           {selectedSection === 'progress-section' && <HomeProgress />}
           {/*Attendance section */}
           {selectedSection === 'attendance-section' && <Attendance />}
+          {selectedSection === 'requestReviewForm' && <RequestReviewForm />}
         </section>
       </main>
     </div>
