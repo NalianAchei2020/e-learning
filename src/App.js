@@ -1,14 +1,25 @@
 import { StoreProvider } from './Context/store';
+import AppContext from './Context/appContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RequestReviewForm from './pages/studentDashboad.js/Progress_section/requestReviewForm';
 import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
+import { useState } from 'react';
 
 function App() {
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [completedTasks, setCompletedTasks] = useState([]);
   return (
     <div className="App">
-      <StoreProvider>
+      <AppContext.Provider
+        value={{
+          selectedTask,
+          setSelectedTask,
+          completedTasks,
+          setCompletedTasks,
+        }}
+      >
         <Router>
           <Routes>
             <Route path="/" element={<Student />} />
@@ -18,7 +29,7 @@ function App() {
             <Route path="/requestReviewForm" element={<RequestReviewForm />} />
           </Routes>
         </Router>
-      </StoreProvider>
+      </AppContext.Provider>
     </div>
   );
 }

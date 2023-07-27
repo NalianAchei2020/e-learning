@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import AppContext from '../../../Context/appContext';
 import { works } from './data';
 import { useNavigate } from 'react-router-dom';
 import RequestReviewForm from './requestReviewForm';
-import { Button } from 'react-bootstrap';
 import CodeReviewer from '../../codeReviewer';
 
 const HomeProgress = () => {
+  const { selectedTask, setSelectedTask, completedTasks, setCompletedTasks } =
+    useContext(AppContext);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     const allTasks = works.flatMap((module) =>
@@ -14,35 +16,12 @@ const HomeProgress = () => {
     setTasks(allTasks);
   }, []);
 
-  //popUp screen
-  const [showModal, setShowModal] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
-  //maximum num of review
-  const [reviewsRequested, setReviewsRequested] = useState(0);
-  //message
-  const [message, setMessage] = useState('');
-  //popup for request review
-  const handlepopUp = (taskId) => {
-    if (reviewsRequested < 5) {
-      setSelectedTask(tasks.find((task) => task.taskIndex === taskId));
-      setShowModal(true);
-      setReviewsRequested(reviewsRequested + 1);
-      setMessage(reviewsRequested);
-    } else {
-      setMessage('You Have Reached Your Request Review Limit');
-    }
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedTask(null);
-  };
-
   //status
   const [status, setStatus] = useState(
     JSON.parse(localStorage.getItem('status')) || ''
   );
   const [statusRe, setStatusRe] = useState('');
+  const [clicktwo, setclicktwo] = useState(false);
   useEffect(() => {
     const totalTasks = works.reduce(
       (sum, module) =>
@@ -57,6 +36,21 @@ const HomeProgress = () => {
     const initialStatus = new Array(totalTasks).fill('Not Started');
     setStatus(initialStatus);
   }, []);
+  //change the state of request review
+  useEffect(() => {
+    const totalTasks = works.reduce(
+      (sum, module) =>
+        sum +
+        module.blocks.reduce(
+          (sum, block) =>
+            sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
+          0
+        ),
+      0
+    );
+    const initialStatus = new Array(totalTasks).fill('Request Review');
+    setStatusRe(initialStatus);
+  }, []);
   useEffect(() => {
     localStorage.setItem('status', JSON.stringify(status));
   }, [status]);
@@ -70,17 +64,6 @@ const HomeProgress = () => {
     setclicked(true);
     console.log(index);
     console.log(status);
-  };
-
-  const submitRe = (index) => {
-    setStatusRe((prevStatus) => {
-      const newStatus = [...prevStatus];
-      newStatus[index] = 'Pending';
-      return newStatus;
-    });
-    setclicked(true);
-    console.log(index);
-    console.log(statusRe);
   };
   //active module
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
@@ -114,7 +97,6 @@ const HomeProgress = () => {
   //get inputs
   //Requesting a review from a code reviewer
   const [RequestReviewTask, setRequestReview] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
   console.log(completedTasks);
   //save code review request to the localStorage
   useEffect(() => {
@@ -124,7 +106,7 @@ const HomeProgress = () => {
       setCompletedTasks(JSON.parse(storedCompletedTasks));
     }
   }, []);
-  const handleTaskSubmit = (pullRequestLink) => {
+  const handleTaskSubmit = (pullRequestLink, index) => {
     const updatedTasks = tasks.map((task) =>
       task.taskId === selectedTask.taskId
         ? { ...task, taskStatus: 'completed', pullRequestLink }
@@ -138,6 +120,16 @@ const HomeProgress = () => {
       selectedTask.taskLink,
       pullRequestLink
     );
+    setStatusRe((prevStatus) => {
+      const newStatus = [...prevStatus];
+      newStatus[index] = 'Pending';
+      return newStatus;
+    });
+    setclicktwo(true);
+    console.log(index);
+    console.log(status);
+    setShowButton(true);
+    setShowForm(false);
   };
   // Function to send the completed task information to the code reviewer dashboard
   const sendCompletedTaskToCodeReviewer = (
@@ -149,10 +141,6 @@ const HomeProgress = () => {
     const completedTask = { taskName, pullRequestLink };
     setCompletedTasks([...completedTasks, completedTask]);
   };
-  useEffect(() => {
-    // Save completed tasks to local storage on update
-    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-  }, [completedTasks]);
   return (
     <div>
       {showButton && (
@@ -274,6 +262,8 @@ const HomeProgress = () => {
                                     status[task.taskIndex] !== undefined &&
                                     task.type === 'Lesson'
                                       ? `${status[task.taskIndex]}`
+                                      : clicktwo && task.type === 'Project'
+                                      ? `${statusRe[task.taskIndex]}`
                                       : `${task.status}`}
                                   </span>
                                 </td>
@@ -314,6 +304,10 @@ const HomeProgress = () => {
                                             ? 'Submit'
                                             : task.type === 'Project'
                                             ? 'Request Review'
+                                            : clicked &&
+                                              status[task.taskIndex] ===
+                                                'Completed'
+                                            ? 'Undo Submission'
                                             : 'submit'}
                                         </button>
                                       </li>

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import AppContext from '../../../Context/appContext';
 
-const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
+const RequestReviewForm = ({ onTaskSubmit }) => {
+  const { selectedTask } = useContext(AppContext);
   //getting input request review form
   const [projectLink, setProjectLink] = useState('');
   const [confirmOriginalWork, setConfirmOriginalWork] = useState(false);
@@ -19,7 +21,7 @@ const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onTaskSubmit(projectLink);
+    onTaskSubmit(projectLink, selectedTask.taskIndex);
   };
 
   return (
