@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-const SubmitForm = () => {
+const SubmitForm = ({ selectedTask, onProjectSubmit }) => {
+  const [projectLink, setProjectLink] = useState('');
+  const [confirmOriginalWork, setConfirmOriginalWork] = useState(false);
+  const [isLinkValid, setIsLinkValid] = useState(false);
+  //pull request link valindation
+  const validateLinkFormat = (link) => {
+    const linkRegex =
+      /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\/pull\/[0-9]+$/;
+    return linkRegex.test(link);
+  };
+  const handleLinkChange = (e) => {
+    setProjectLink(e.target.value);
+    setIsLinkValid(validateLinkFormat(e.target.value));
+  };
+
+  const handleProjectSubmit = (e) => {
+    e.preventDefault();
+    onProjectSubmit(projectLink, selectedTask.taskIndex);
+  };
   return (
     <div>
       <h1>Program Activity Completion Form</h1>
@@ -11,14 +29,18 @@ const SubmitForm = () => {
           continue with the next steps.
         </span>
         <div>
-          <form>
+          <form onSubmit={handleProjectSubmit}>
             <label>Which activity did you just complete?</label>
-            <select
-              class="form-select form-select-lg mb-3"
-              aria-label=".form-select-lg example"
-            >
-              <option selected>Open this select menu</option>
-            </select>
+            {selectedTask ? (
+              <select
+                class="form-select form-select-lg mb-3"
+                aria-label=".form-select-lg example"
+              >
+                <option selected>{selectedTask.taskName}</option>
+              </select>
+            ) : (
+              <p>No task found</p>
+            )}
             <label>
               <h5> Please submit the link to your project here</h5>
               <span>
@@ -26,9 +48,22 @@ const SubmitForm = () => {
                 <b>https://github/username/repo/PR-name/number</b>
               </span>
             </label>
-            <input type="text" className="form-control" />
+            <input
+              type="text"
+              className="form-control"
+              value={projectLink}
+              onChange={handleLinkChange}
+            />
+            {isLinkValid ? null : (
+              <p style={{ color: 'red' }}>Please enter a valid link.</p>
+            )}
             <br />
-            <input type="checkbox" required />
+            <input
+              type="checkbox"
+              required
+              checked={confirmOriginalWork}
+              onChange={(e) => setConfirmOriginalWork(e.target.checked)}
+            />
             <label>
               <h5>
                 I hereby confirm that this is my original work and in accordance
@@ -43,7 +78,7 @@ const SubmitForm = () => {
             </label>
             <br />
             <br />
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={!isLinkValid}>
               Submit
             </Button>
           </form>
