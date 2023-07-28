@@ -9,12 +9,17 @@ const CodeReviewer = () => {
     dispatch(removeCompletedTask(taskIndex));
     dispatch({ type: 'SUBMIT', payload: taskIndex });
     dispatch({ type: 'CLICKED', payload: true });
+    window.location.reload();
   };
   //require changes for code review
   const requiredChanges = (taskIndex) => {
     dispatch(removeCompletedTask(taskIndex));
     dispatch({ type: 'REQUIRED_CHANGES', payload: taskIndex });
     dispatch({ type: 'CLICKED', payload: true });
+    window.location.reload();
+  };
+  const handleRefresh = () => {
+    window.location.reload();
   };
   return (
     <>
@@ -73,6 +78,7 @@ const CodeReviewer = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={handleRefresh}>Refresh</button>
     </>
   );
 };
