@@ -27,14 +27,16 @@ const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
       {selectedTask ? <p>{selectedTask.taskName}</p> : <p>No task selected</p>}
       <form onSubmit={handleSubmit}>
         <label>Activity Completed</label>
-        <a href={selectedTask.taskLink}>
+        {selectedTask ? (
           <input
             className="form-control"
             type="text"
             value={selectedTask.taskName}
           />
-          <br />
-        </a>
+        ) : (
+          ''
+        )}
+        <br />
         <label>
           <h5> Please submit the link to your project here</h5>
           <span>
