@@ -4,6 +4,7 @@ import { works } from './data';
 import { useNavigate } from 'react-router-dom';
 import RequestReviewForm from './requestReviewForm';
 import { addCompletedTaskWithLink } from '../../../Context/reducer';
+import { submitCompletedTasks } from '../../../Context/reducer';
 import { StoreContext } from '../../../Context/store';
 import SubmitForm from './submitForm';
 const HomeProgress = () => {
@@ -90,12 +91,20 @@ const HomeProgress = () => {
   }, [clicked]);
   //form section
   const navigate = useNavigate();
-
+  //click to request review form
   const request = (taskId) => {
     setSelectedTask(tasks.find((task) => task.taskIndex === taskId));
     dispatch({ type: 'MAINPAGE', payload: false });
+    dispatch({ type: 'SUBMITPROJECT', payload: false });
     dispatch({ type: 'REQUESTFORM', payload: true });
     navigate('#form');
+  };
+  //click to submit approved project form
+  const submitProject = (taskId) => {
+    setSelectedTask(tasks.find((task) => task.taskIndex === taskId));
+    dispatch({ type: 'MAINPAGE', payload: false });
+    dispatch({ type: 'REQUESTFORM', payload: false });
+    dispatch({ type: 'SUBMITPROJECT', payload: true });
   };
 
   //get inputs
@@ -121,6 +130,28 @@ const HomeProgress = () => {
 
     dispatch({ type: 'MAINPAGE', payload: true });
     dispatch({ type: 'REQUESTFORM', payload: false });
+  };
+  //function to submit approved to admin
+  const handleSubmitProject = (submitPullRequestLink, index) => {
+    const updatedTasks = tasks.map((task) =>
+      task.taskId === selectedTask.taskId
+        ? { ...task, submitPullRequestLink }
+        : task
+    );
+    setRequestReview(updatedTasks);
+    dispatch(
+      submitCompletedTasks(
+        selectedTask.taskIndex,
+        selectedTask.taskName,
+        selectedTask.taskLink,
+        submitPullRequestLink
+      )
+    );
+    dispatch({ type: 'COMPLETED2', payload: index });
+    dispatch({ type: 'CLICKED', payload: true });
+
+    dispatch({ type: 'MAINPAGE', payload: true });
+    dispatch({ type: 'SUBMITPROJECT', payload: false });
   };
   return (
     <div>
@@ -277,17 +308,34 @@ const HomeProgress = () => {
                                             if (task.type === 'Project') {
                                               request(task.taskIndex);
                                             }
+                                            if (
+                                              task.type === 'Project' &&
+                                              statusTwo[task.taskIndex] ===
+                                                'Submit'
+                                            ) {
+                                              submitProject(task.taskIndex);
+                                            }
                                           }}
                                           className="dropDown-list"
                                         >
                                           {task.type === 'Exercise'
                                             ? 'Submit'
-                                            : task.type === 'Project'
+                                            : task.type === 'Project' &&
+                                              statusTwo[task.taskIndex] ===
+                                                'Request Review'
+                                            ? 'Request Review'
+                                            : task.type === 'Project' &&
+                                              statusTwo[task.taskIndex] ===
+                                                'Required Changes'
                                             ? 'Request Review'
                                             : clicked &&
                                               statusOne[task.taskIndex] ===
                                                 'Completed'
                                             ? 'Undo Submission'
+                                            : statusTwo[task.taskIndex] ===
+                                                'Pending' &&
+                                              task.type === 'Project'
+                                            ? 'View Submssion'
                                             : 'submit'}
                                         </button>
                                       </li>
@@ -320,7 +368,10 @@ const HomeProgress = () => {
       )}
       {submitProjectForm && (
         <section>
-          <SubmitForm selectedTask={selectedTask} />
+          <SubmitForm
+            selectedTask={selectedTask}
+            onProjectSubmit={handleSubmitProject}
+          />
         </section>
       )}
     </div>
