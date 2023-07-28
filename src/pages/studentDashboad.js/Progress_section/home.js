@@ -5,9 +5,18 @@ import { useNavigate } from 'react-router-dom';
 import RequestReviewForm from './requestReviewForm';
 import { addCompletedTaskWithLink } from '../../../Context/reducer';
 import { StoreContext } from '../../../Context/store';
+import SubmitForm from './submitForm';
 const HomeProgress = () => {
   const { state, dispatch } = useContext(StoreContext);
-  const { statusOne, statusTwo, CLICKED } = state;
+  //get state
+  const {
+    statusOne,
+    statusTwo,
+    CLICKED,
+    mainPage,
+    requestReviewForm,
+    submitProjectForm,
+  } = state;
 
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
@@ -18,13 +27,9 @@ const HomeProgress = () => {
     setTasks(allTasks);
   }, []);
 
-  //status
-
   useEffect(() => {
     localStorage.setItem('statusOne', JSON.stringify(statusOne));
   }, [statusOne]);
-
-  const [clicktwo, setclicktwo] = useState(false);
 
   useEffect(() => {
     // Retrieve the status state from localStorage
@@ -65,6 +70,7 @@ const HomeProgress = () => {
   const submit = (index) => {
     dispatch({ type: 'COMPLETE', payload: index });
     setclicked(true);
+    window.location.reload();
   };
   //active module
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
@@ -84,23 +90,13 @@ const HomeProgress = () => {
   }, [clicked]);
   //form section
   const navigate = useNavigate();
-  const [showButton, setShowButton] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [pathToNavigate, setPathToNavigate] = useState(
-    JSON.parse(localStorage.getItem('pathToNavigate')) || ''
-  );
+
   const request = (taskId) => {
     setSelectedTask(tasks.find((task) => task.taskIndex === taskId));
-    setShowButton(false);
-    setShowForm(true);
-    setPathToNavigate('#form');
+    dispatch({ type: 'MAINPAGE', payload: false });
+    dispatch({ type: 'REQUESTFORM', payload: true });
+    navigate('#form');
   };
-  useEffect(() => {
-    if (pathToNavigate) {
-      navigate(pathToNavigate);
-      localStorage.removeItem('pathToNavigate');
-    }
-  }, [navigate, pathToNavigate]);
 
   //get inputs
   //Requesting a review from a code reviewer
@@ -123,12 +119,12 @@ const HomeProgress = () => {
     dispatch({ type: 'PENDING', payload: index });
     dispatch({ type: 'CLICKED', payload: true });
 
-    setShowButton(true);
-    setShowForm(false);
+    dispatch({ type: 'MAINPAGE', payload: true });
+    dispatch({ type: 'REQUESTFORM', payload: false });
   };
   return (
     <div>
-      {showButton && (
+      {mainPage && (
         <section className="progress-section">
           <article className="message">
             <h4 className="m-3">Refer a Friend Now</h4>
@@ -312,7 +308,7 @@ const HomeProgress = () => {
         </section>
       )}
 
-      {showForm && (
+      {requestReviewForm && (
         <section>
           <RequestReviewForm
             id="form"
@@ -320,6 +316,11 @@ const HomeProgress = () => {
             onTaskSubmit={handleTaskSubmit}
             RequestReviewTask={RequestReviewTask}
           />
+        </section>
+      )}
+      {submitProjectForm && (
+        <section>
+          <SubmitForm selectedTask={selectedTask} />
         </section>
       )}
     </div>
