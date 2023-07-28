@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
-import AppContext from '../../../Context/appContext';
 import { works } from './data';
 import { useNavigate } from 'react-router-dom';
 import RequestReviewForm from './requestReviewForm';
-import CodeReviewer from '../../codeReviewer';
-
+import { addCompletedTaskWithLink } from '../../../Context/reducer';
+import { StoreContext } from '../../../Context/store';
 const HomeProgress = () => {
-  const { selectedTask, setSelectedTask, completedTasks, setCompletedTasks } =
-    useContext(AppContext);
+  const { state, dispatch } = useContext(StoreContext);
+  const { statusOne, statusTwo, CLICKED } = state;
+
+  const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     const allTasks = works.flatMap((module) =>
@@ -17,25 +19,33 @@ const HomeProgress = () => {
   }, []);
 
   //status
-  const [status, setStatus] = useState(
-    JSON.parse(localStorage.getItem('status')) || ''
-  );
-  const [statusRe, setStatusRe] = useState('');
-  const [clicktwo, setclicktwo] = useState(false);
+
   useEffect(() => {
-    const totalTasks = works.reduce(
-      (sum, module) =>
-        sum +
-        module.blocks.reduce(
-          (sum, block) =>
-            sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
-          0
-        ),
-      0
-    );
-    const initialStatus = new Array(totalTasks).fill('Not Started');
-    setStatus(initialStatus);
-  }, []);
+    localStorage.setItem('statusOne', JSON.stringify(statusOne));
+  }, [statusOne]);
+
+  const [clicktwo, setclicktwo] = useState(false);
+
+  useEffect(() => {
+    // Retrieve the status state from localStorage
+    const storedStatus = localStorage.getItem('statusOne');
+    if (storedStatus) {
+      JSON.parse(storedStatus);
+    } else {
+      const totalTasks = works.reduce(
+        (sum, module) =>
+          sum +
+          module.blocks.reduce(
+            (sum, block) =>
+              sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
+            0
+          ),
+        0
+      );
+      const initialStatus = new Array(totalTasks).fill('Not Started');
+      dispatch({ type: 'INIT', payload: initialStatus });
+    }
+  }, [works]);
   //change the state of request review
   useEffect(() => {
     const totalTasks = works.reduce(
@@ -49,21 +59,12 @@ const HomeProgress = () => {
       0
     );
     const initialStatus = new Array(totalTasks).fill('Request Review');
-    setStatusRe(initialStatus);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('status', JSON.stringify(status));
-  }, [status]);
+    dispatch({ type: 'INITIAL', payload: initialStatus });
+  }, [works]);
 
   const submit = (index) => {
-    setStatus((prevStatus) => {
-      const newStatus = [...prevStatus];
-      newStatus[index] = 'Completed';
-      return newStatus;
-    });
+    dispatch({ type: 'COMPLETE', payload: index });
     setclicked(true);
-    console.log(index);
-    console.log(status);
   };
   //active module
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
@@ -73,7 +74,14 @@ const HomeProgress = () => {
     setActiveModuleIndex(index);
   };
 
-  const [clicked, setclicked] = useState(false);
+  const [clicked, setclicked] = useState(
+    localStorage.getItem('clicked')
+      ? JSON.parse(localStorage.getItem('clicked'))
+      : false
+  );
+  useEffect(() => {
+    localStorage.setItem('clicked', JSON.stringify(clicked));
+  }, [clicked]);
   //form section
   const navigate = useNavigate();
   const [showButton, setShowButton] = useState(true);
@@ -97,49 +105,26 @@ const HomeProgress = () => {
   //get inputs
   //Requesting a review from a code reviewer
   const [RequestReviewTask, setRequestReview] = useState([]);
-  console.log(completedTasks);
-  //save code review request to the localStorage
-  useEffect(() => {
-    // Load completed tasks from local storage on mount
-    const storedCompletedTasks = localStorage.getItem('completedTasks');
-    if (storedCompletedTasks) {
-      setCompletedTasks(JSON.parse(storedCompletedTasks));
-    }
-  }, []);
+
   const handleTaskSubmit = (pullRequestLink, index) => {
     const updatedTasks = tasks.map((task) =>
-      task.taskId === selectedTask.taskId
-        ? { ...task, taskStatus: 'completed', pullRequestLink }
-        : task
+      task.taskId === selectedTask.taskId ? { ...task, pullRequestLink } : task
     );
     setRequestReview(updatedTasks);
     // Send the completed task information to the code reviewer dashboard
-    sendCompletedTaskToCodeReviewer(
-      selectedTask.taskId,
-      selectedTask.taskName,
-      selectedTask.taskLink,
-      pullRequestLink
+    dispatch(
+      addCompletedTaskWithLink(
+        selectedTask.taskIndex,
+        selectedTask.taskName,
+        selectedTask.taskLink,
+        pullRequestLink
+      )
     );
-    setStatusRe((prevStatus) => {
-      const newStatus = [...prevStatus];
-      newStatus[index] = 'Pending';
-      return newStatus;
-    });
-    setclicktwo(true);
-    console.log(index);
-    console.log(status);
+    dispatch({ type: 'PENDING', payload: index });
+    dispatch({ type: 'CLICKED', payload: true });
+
     setShowButton(true);
     setShowForm(false);
-  };
-  // Function to send the completed task information to the code reviewer dashboard
-  const sendCompletedTaskToCodeReviewer = (
-    taskId,
-    taskName,
-    taskLink,
-    pullRequestLink
-  ) => {
-    const completedTask = { taskName, pullRequestLink };
-    setCompletedTasks([...completedTasks, completedTask]);
   };
   return (
     <div>
@@ -253,22 +238,21 @@ const HomeProgress = () => {
                                     className={`status ${
                                       task.type === 'Project'
                                         ? 'special-class'
-                                        : status[task.taskIndex] === 'Completed'
+                                        : statusOne[task.taskIndex] ===
+                                          'Completed'
                                         ? 'complete'
                                         : ''
                                     }`}
                                   >
-                                    {clicked &&
-                                    status[task.taskIndex] !== undefined &&
-                                    task.type === 'Lesson'
-                                      ? `${status[task.taskIndex]}`
-                                      : clicktwo && task.type === 'Project'
-                                      ? `${statusRe[task.taskIndex]}`
+                                    {clicked && task.type === 'Lesson'
+                                      ? `${statusOne[task.taskIndex]}`
+                                      : CLICKED && task.type === 'Project'
+                                      ? `${statusTwo[task.taskIndex]}`
                                       : `${task.status}`}
                                   </span>
                                 </td>
                                 <td>
-                                  <div class="btn-group">
+                                  <div className="btn-group">
                                     <button
                                       class="btn btn-secondary btn-sm dropdown-toggle"
                                       type="button"
@@ -277,7 +261,7 @@ const HomeProgress = () => {
                                     >
                                       Actions
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul className="dropdown-menu">
                                       <li>
                                         <a
                                           href={task.taskLink}
@@ -305,7 +289,7 @@ const HomeProgress = () => {
                                             : task.type === 'Project'
                                             ? 'Request Review'
                                             : clicked &&
-                                              status[task.taskIndex] ===
+                                              statusOne[task.taskIndex] ===
                                                 'Completed'
                                             ? 'Undo Submission'
                                             : 'submit'}
@@ -338,8 +322,6 @@ const HomeProgress = () => {
           />
         </section>
       )}
-
-      <CodeReviewer completedTasks={completedTasks} />
     </div>
   );
 };
