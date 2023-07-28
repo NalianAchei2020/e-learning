@@ -1,14 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import AppContext from '../../../Context/appContext';
 
-const RequestReviewForm = ({ onTaskSubmit }) => {
-  const { selectedTask } = useContext(AppContext);
+const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
   //getting input request review form
   const [projectLink, setProjectLink] = useState('');
   const [confirmOriginalWork, setConfirmOriginalWork] = useState(false);
   const [isLinkValid, setIsLinkValid] = useState(false);
-  //link valindation
+  //pull request link valindation
   const validateLinkFormat = (link) => {
     const linkRegex =
       /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\/pull\/[0-9]+$/;
