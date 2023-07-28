@@ -4,6 +4,7 @@ import RequestReviewForm from './pages/studentDashboad.js/Progress_section/reque
 import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
+import Admin from './pages/admin';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/attendance-section-link" element={<Student />} />
             <Route path="/codereviewer" element={<CodeReviewer />} />
             <Route path="/requestReviewForm" element={<RequestReviewForm />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </Router>
       </StoreProvider>
