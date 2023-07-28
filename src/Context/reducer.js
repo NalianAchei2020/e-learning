@@ -1,9 +1,14 @@
 export const initialState = {
   users: JSON.parse(localStorage.getItem('users')) || [],
   reviewCount: parseInt(localStorage.getItem('reviewCount'), 10) || 5,
+  //Send a review to code reviewer
   completedTasks: localStorage.getItem('completedTasks')
     ? JSON.parse(localStorage.getItem('completedTasks'))
     : [],
+  //submit an approved project
+  submitCompletedTasks: JSON.parse(
+    localStorage.getItem('submitCompletedTasks')
+  ),
   statusOne: localStorage.getItem('statusOne')
     ? JSON.parse(localStorage.getItem('statusOne'))
     : [],
@@ -11,6 +16,11 @@ export const initialState = {
     ? JSON.parse(localStorage.getItem('statusTwo'))
     : [],
   CLICKED: JSON.parse(localStorage.getItem('CLICKED')) || false,
+  //handling forms in the progress section
+  mainPage: JSON.parse(localStorage.getItem('mainPage')) || true,
+  requestReviewForm: JSON.parse(localStorage.getItem('requestForm')) || false,
+  submitProjectForm:
+    JSON.parse(localStorage.getItem('submitProjectForm')) || false,
 };
 // send a request
 export const ADD_COMPLETED_TASK = 'ADD_COMPLETED_TASK';
@@ -24,12 +34,23 @@ export const addCompletedTaskWithLink = (
   type: ADD_COMPLETED_TASK,
   payload: { taskIndex, taskName, taskLink, pullRequestLink },
 });
-//request action
+//code reviewer action
 export const REMOVE_COMPLETED_TASK = 'REMOVE_COMPLETED_TASK';
 
 export const removeCompletedTask = (taskIndex) => ({
   type: REMOVE_COMPLETED_TASK,
   payload: taskIndex,
+});
+//submit an approved project
+const SUBMIT_COMPLETED_TASK = 'SUBMIT_COMPLETED_TASK';
+export const submitCompletedTasks = (
+  taskIndex,
+  taskName,
+  taskLink,
+  submitPullRequestLink
+) => ({
+  type: SUBMIT_COMPLETED_TASK,
+  payload: { taskIndex, taskName, taskLink, submitPullRequestLink },
 });
 function reducer(state, action) {
   switch (action.type) {
@@ -49,6 +70,20 @@ function reducer(state, action) {
       const updatedTasks = [...state.completedTasks, newTask];
       localStorage.setItem('completedTasks', JSON.stringify(updatedTasks));
       return { ...state, completedTasks: updatedTasks };
+    //case to submit an approved project
+    case 'SUBMIT_COMPLETED_TASK':
+      const newTASKS = {
+        taskIndex: action.payload.taskIndex,
+        taskName: action.payload.taskName,
+        taskLink: action.payload.taskLink,
+        pullRequestLink: action.payload.pullRequestLink,
+      };
+      const submitUpdate = [...state.submitCompletedTasks, newTASKS];
+      localStorage.setItem(
+        'submitCompletedTasks',
+        JSON.stringify(submitUpdate)
+      );
+      return { ...state, submitCompletedTasks: submitUpdate };
     case REMOVE_COMPLETED_TASK:
       const reupdatedTasks = state.completedTasks.filter(
         (task) => task.taskIndex !== action.payload
@@ -97,6 +132,23 @@ function reducer(state, action) {
       const newClicked = action.payload;
       localStorage.setItem('CLICKED', JSON.stringify(newClicked));
       return { ...state, CLICKED: newClicked };
+    //handling forms on progress section
+    case 'MAINPAGE':
+      const newPage = action.payload;
+      localStorage.setItem('mainPage', JSON.stringify(newPage));
+      return { ...state, mainPage: newPage };
+    case 'REQUESTFORM':
+      const newRequestForm = action.payload;
+      localStorage.setItem('requestForm', JSON.stringify(newRequestForm));
+      return { ...state, requestReviewForm: newRequestForm };
+    case 'SUBMITPROJECT':
+      const newSubmitProject = action.payload;
+      localStorage.setItem(
+        'submitProjectForm',
+        JSON.stringify(newSubmitProject)
+      );
+      return { ...state, submitProjectForm: newSubmitProject };
+
     default:
       return state;
   }
