@@ -7,7 +7,19 @@ const Admin = () => {
 
   return (
     <div className="main-container">
-      <aside></aside>
+      <aside>
+        <ul>
+          <li>
+            <a href="/HomeAdmin">Home</a>
+          </li>
+          <li>
+            <a href="/codeReviewerAdmin">Code Reviewers</a>
+          </li>
+          <li>
+            <a href="/adminStudents">Students</a>
+          </li>
+        </ul>
+      </aside>
       <main>
         <h4>ADMIN</h4>
         <table className="table">

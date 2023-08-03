@@ -5,7 +5,7 @@ aside {
   text-align: center;
   background-color: rgb(130, 130, 226);
   overflow-y: scroll;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   top: 0;
   .list a {
@@ -53,6 +53,8 @@ main {
 .main-container {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100vh;
 }
 
 .dashboard-section {
