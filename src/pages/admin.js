@@ -6,31 +6,34 @@ const Admin = () => {
   const { submitCompletedTasks } = state;
 
   return (
-    <div>
-      <h4>ADMIN</h4>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Pull Request Link</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {submitCompletedTasks.map((task) => (
-            <tr key={task.taskIndex}>
-              <td>
-                <a href={task.taskLink}>{task.taskName}</a>
-              </td>
-              <td>
-                <a href={task.submitPullRequestLink}>
-                  {task.submitPullRequestLink}
-                </a>
-              </td>
+    <div className="main-container">
+      <aside></aside>
+      <main>
+        <h4>ADMIN</h4>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>Pull Request Link</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {submitCompletedTasks.map((task) => (
+              <tr key={task.taskIndex}>
+                <td>
+                  <a href={task.taskLink}>{task.taskName}</a>
+                </td>
+                <td>
+                  <a href={task.submitPullRequestLink}>
+                    {task.submitPullRequestLink}
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
     </div>
   );
 };
