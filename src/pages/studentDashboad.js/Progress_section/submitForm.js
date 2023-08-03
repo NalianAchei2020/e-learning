@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 const SubmitForm = ({ selectedTask, onProjectSubmit }) => {
-  const [projectLink, setProjectLink] = useState('');
+  const [submitprojectLink, setsubmitProjectLink] = useState('');
   const [confirmOriginalWork, setConfirmOriginalWork] = useState(false);
   const [isLinkValid, setIsLinkValid] = useState(false);
+
+  console.log(submitprojectLink + 'hello');
   //pull request link valindation
   const validateLinkFormat = (link) => {
     const linkRegex =
       /^https:\/\/github\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\/pull\/[0-9]+$/;
     return linkRegex.test(link);
   };
-  const handleLinkChange = (e) => {
-    setProjectLink(e.target.value);
+  const handledLinkChange = (e) => {
+    setsubmitProjectLink(e.target.value);
     setIsLinkValid(validateLinkFormat(e.target.value));
   };
 
   const handleProjectSubmit = (e) => {
     e.preventDefault();
-    onProjectSubmit(projectLink, selectedTask.taskIndex);
+    onProjectSubmit(submitprojectLink, selectedTask.taskIndex);
   };
   return (
     <div>
@@ -37,6 +39,7 @@ const SubmitForm = ({ selectedTask, onProjectSubmit }) => {
                 aria-label=".form-select-lg example"
               >
                 <option selected>{selectedTask.taskName}</option>
+                <option>{selectedTask.taskIndex}</option>
               </select>
             ) : (
               <p>No task found</p>
@@ -51,8 +54,8 @@ const SubmitForm = ({ selectedTask, onProjectSubmit }) => {
             <input
               type="text"
               className="form-control"
-              value={projectLink}
-              onChange={handleLinkChange}
+              value={submitprojectLink}
+              onChange={handledLinkChange}
             />
             {isLinkValid ? null : (
               <p style={{ color: 'red' }}>Please enter a valid link.</p>

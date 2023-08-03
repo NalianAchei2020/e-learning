@@ -7,6 +7,7 @@ const Admin = () => {
 
   return (
     <div>
+      <h4>ADMIN</h4>
       <table className="table">
         <thead>
           <tr>
@@ -22,7 +23,9 @@ const Admin = () => {
                 <a href={task.taskLink}>{task.taskName}</a>
               </td>
               <td>
-                <a href={task.pullRequestLink}>{task.pullRequestLink}</a>
+                <a href={task.submitPullRequestLink}>
+                  {task.submitPullRequestLink}
+                </a>
               </td>
             </tr>
           ))}

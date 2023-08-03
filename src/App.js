@@ -5,6 +5,7 @@ import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
 import Admin from './pages/admin';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/codereviewer" element={<CodeReviewer />} />
             <Route path="/requestReviewForm" element={<RequestReviewForm />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Router>
       </StoreProvider>

@@ -85,6 +85,12 @@ const Student = () => {
               <a href="/codereviewer">Code Reviewer</a>
             </li>
             <li>
+              <a href="/admin">Admin</a>
+            </li>
+            <li>
+              <a href="/login">Login</a>
+            </li>
+            <li>
               <a href="#signout">Signout</a>
             </li>
           </ul>

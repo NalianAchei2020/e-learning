@@ -6,9 +6,8 @@ export const initialState = {
     ? JSON.parse(localStorage.getItem('completedTasks'))
     : [],
   //submit an approved project
-  submitCompletedTasks: JSON.parse(
-    localStorage.getItem('submitCompletedTasks')
-  ),
+  submitCompletedTasks:
+    JSON.parse(localStorage.getItem('submitCompletedTasks')) || [],
   statusOne: localStorage.getItem('statusOne')
     ? JSON.parse(localStorage.getItem('statusOne'))
     : [],
@@ -76,7 +75,7 @@ function reducer(state, action) {
         taskIndex: action.payload.taskIndex,
         taskName: action.payload.taskName,
         taskLink: action.payload.taskLink,
-        pullRequestLink: action.payload.pullRequestLink,
+        submitPullRequestLink: action.payload.submitPullRequestLink,
       };
       const submitUpdate = [...state.submitCompletedTasks, newTASKS];
       localStorage.setItem(
