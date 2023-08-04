@@ -19,6 +19,9 @@ function App() {
             <Route path="/codereviewer" element={<CodeReviewer />} />
             <Route path="/requestReviewForm" element={<RequestReviewForm />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/performance" element={<Admin />} />
+            <Route path="//adminusers" element={<Admin />} />
+            <Route path="//pairstudent" element={<Admin />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </Router>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Home from './home';
+import UsersForm from './usersForm';
+import PairStudents from './pairStudents';
+import Performance from './performance';
 
 const Admin = () => {
   //Routing links
@@ -42,8 +45,8 @@ const Admin = () => {
           </li>
           <li>
             <a
-              onClick={() => handleNavigation('performance')}
               href="/performance"
+              onClick={() => handleNavigation('performance')}
             >
               View Performance
             </a>
@@ -57,9 +60,9 @@ const Admin = () => {
           </ul>
         </header>
         {selectedLink === 'HomeAdmin' && <Home />}
-        {selectedLink === 'adminusers' && <Home />}
-        {selectedLink === 'pairstudent' && <Home />}
-        {selectedLink === 'performance' && <Home />}
+        {selectedLink === 'adminusers' && <UsersForm />}
+        {selectedLink === 'pairstudent' && <PairStudents />}
+        {selectedLink === 'performance' && <Performance />}
       </main>
     </div>
   );
