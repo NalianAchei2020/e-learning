@@ -7,20 +7,33 @@
   justify-content: center;
   align-items: center;
 }
-.form-control {
-  width: 100%;
+.form-input {
+  width: 350px;
   height: 50px;
   margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  padding-left: 2em;
 }
 .login-button {
   position: absolute;
-  right: 42%;
-  width: 90px;
-  height: 40px;
-  background-color: #fff;
+  right: 45%;
+  width: 150px;
+  height: 50px;
+  background-color: #e6d8d8;
   color: rgb(130, 130, 226);
   font-size: 1.2rem;
   font-weight: 700;
   border: none;
   border-radius: 5px;
+  margin-top: 10px;
+}
+.login-button:hover {
+  background-color: rgb(155, 209, 209);
+  color: #fff;
+}
+.login-button:focus {
+  background-color: rgb(87, 129, 129);
+  color: #fff;
 }

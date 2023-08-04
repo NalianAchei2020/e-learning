@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StoreContext } from '../Context/store';
+import { StoreContext } from '../../Context/store';
 
 const Admin = () => {
   const { state } = useContext(StoreContext);
@@ -8,15 +8,21 @@ const Admin = () => {
   return (
     <div className="main-container">
       <aside>
-        <ul>
+        <ul className="adminlist">
           <li>
             <a href="/HomeAdmin">Home</a>
+          </li>
+          <li>
+            <a href="/adminStudents">Students</a>
+          </li>
+          <li>
+            <a href="/pairstudent">Pair Students</a>
           </li>
           <li>
             <a href="/codeReviewerAdmin">Code Reviewers</a>
           </li>
           <li>
-            <a href="/adminStudents">Students</a>
+            <a href="/admincompletedTask">Completed Tasks</a>
           </li>
         </ul>
       </aside>

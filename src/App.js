@@ -4,7 +4,7 @@ import RequestReviewForm from './pages/studentDashboad.js/Progress_section/reque
 import Student from './pages/studentDashboad.js/student';
 import './sass/index.scss';
 import CodeReviewer from './pages/codeReviewer';
-import Admin from './pages/admin';
+import Admin from './pages/admin/admin';
 import Login from './pages/Login';
 
 function App() {
