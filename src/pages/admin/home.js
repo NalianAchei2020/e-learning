@@ -5,7 +5,9 @@ const Home = () => {
     <div>
       <section className="home">
         <div className="image"></div>
-        <div className="text"></div>
+        <div className="text">
+          <h3>Home</h3>
+        </div>
       </section>
       <section className="users">
         <div className="image"></div>

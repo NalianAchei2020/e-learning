@@ -1,53 +1,65 @@
-import React, { useContext } from 'react';
-import { StoreContext } from '../../Context/store';
+import React, { useEffect, useState } from 'react';
+import Home from './home';
 
 const Admin = () => {
-  const { state } = useContext(StoreContext);
-  const { submitCompletedTasks } = state;
-
+  //Routing links
+  const [selectedLink, setSelectedLink] = useState(
+    JSON.parse(localStorage.getItem('selectedLink')) || 'HomeAdmin'
+  );
+  // Define a function to handle clicks on navigation links
+  function handleNavigation(section) {
+    setSelectedLink(section);
+  }
+  //save to localStorage
+  // links
+  useEffect(() => {
+    localStorage.setItem('selectedLink', JSON.stringify(selectedLink));
+  }, [selectedLink]);
   return (
     <div className="main-container">
       <aside>
         <ul className="adminlist">
           <li>
-            <a href="/HomeAdmin">Home</a>
+            <a onClick={() => handleNavigation('HomeAdmin')} href="/admin">
+              Home
+            </a>
           </li>
           <li>
-            <a href="/adminusers">Users</a>
+            <a
+              onClick={() => handleNavigation('adminusers')}
+              href="/adminusers"
+            >
+              Users
+            </a>
           </li>
           <li>
-            <a href="/pairstudent">Pair Students</a>
+            <a
+              onClick={() => handleNavigation('pairstudent')}
+              href="/pairstudent"
+            >
+              Pair Students
+            </a>
           </li>
           <li>
-            <a href="/admincompletedTask">View Performance</a>
+            <a
+              onClick={() => handleNavigation('performance')}
+              href="/performance"
+            >
+              View Performance
+            </a>
           </li>
         </ul>
       </aside>
       <main>
-        <h4>ADMIN</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Task Name</th>
-              <th>Pull Request Link</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submitCompletedTasks.map((task) => (
-              <tr key={task.taskIndex}>
-                <td>
-                  <a href={task.taskLink}>{task.taskName}</a>
-                </td>
-                <td>
-                  <a href={task.submitPullRequestLink}>
-                    {task.submitPullRequestLink}
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <header>
+          <ul className="nav">
+            <li>Admin</li>
+          </ul>
+        </header>
+        {selectedLink === 'HomeAdmin' && <Home />}
+        {selectedLink === 'adminusers' && <Home />}
+        {selectedLink === 'pairstudent' && <Home />}
+        {selectedLink === 'performance' && <Home />}
       </main>
     </div>
   );

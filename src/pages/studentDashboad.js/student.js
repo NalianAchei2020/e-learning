@@ -21,7 +21,6 @@ const Student = () => {
   useEffect(() => {
     localStorage.setItem('selectedSection', JSON.stringify(selectedSection));
   }, [selectedSection]);
-  //state of task status
 
   return (
     <div className="main-container">
