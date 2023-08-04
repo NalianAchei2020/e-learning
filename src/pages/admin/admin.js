@@ -13,16 +13,13 @@ const Admin = () => {
             <a href="/HomeAdmin">Home</a>
           </li>
           <li>
-            <a href="/adminStudents">Students</a>
+            <a href="/adminusers">Users</a>
           </li>
           <li>
             <a href="/pairstudent">Pair Students</a>
           </li>
           <li>
-            <a href="/codeReviewerAdmin">Code Reviewers</a>
-          </li>
-          <li>
-            <a href="/admincompletedTask">Completed Tasks</a>
+            <a href="/admincompletedTask">View Performance</a>
           </li>
         </ul>
       </aside>
