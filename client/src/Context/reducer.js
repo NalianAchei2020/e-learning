@@ -1,5 +1,8 @@
 export const initialState = {
   users: JSON.parse(localStorage.getItem('users')) || [],
+  isAdmin: false,
+  db: null,
+  error: null,
   reviewCount: parseInt(localStorage.getItem('reviewCount'), 10) || 5,
   //Send a review to code reviewer
   completedTasks: localStorage.getItem('completedTasks')
@@ -51,6 +54,8 @@ export const submitCompletedTasks = (
   type: SUBMIT_COMPLETED_TASK,
   payload: { taskIndex, taskName, taskLink, submitPullRequestLink },
 });
+
+//reducer function
 function reducer(state, action) {
   switch (action.type) {
     case 'SET_REVIEW_COUNT':
@@ -147,7 +152,10 @@ function reducer(state, action) {
         JSON.stringify(newSubmitProject)
       );
       return { ...state, submitProjectForm: newSubmitProject };
-
+    case 'SET_DB':
+      return { ...state, db: action.payload };
+    case 'SET_ERROR':
+      return { ...state, error: action.payload };
     default:
       return state;
   }

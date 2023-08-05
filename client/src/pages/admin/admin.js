@@ -56,7 +56,9 @@ const Admin = () => {
       <main>
         <header>
           <ul className="nav">
-            <li>Admin</li>
+            <li>
+              <h5>Admin</h5>
+            </li>
           </ul>
         </header>
         {selectedLink === 'HomeAdmin' && <Home />}
