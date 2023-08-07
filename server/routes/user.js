@@ -1,10 +1,10 @@
-import express, { Router } from 'express';
+import express from 'express';
 import {
   deleteUser,
   getallusers,
   getUsers,
   updateUsers,
-} from '../controllers/users.js';
+} from '../controllers/user.js';
 import {
   verifiedToken,
   verifyAdmin,
@@ -20,6 +20,6 @@ usersRouter.delete('/:id', verifyUser, deleteUser);
 //get
 usersRouter.get('/:id', verifyUser, getUsers);
 //get all
-usersRouter.get('/', verifyAdmin, getallusers);
+usersRouter.get('/', verifyUser, getallusers);
 
 export default usersRouter;

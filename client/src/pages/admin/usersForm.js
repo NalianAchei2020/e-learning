@@ -1,28 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../../Context/store';
-import { db } from '../../db';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { queries } from '@testing-library/react';
-
-db.version(1).stores({
-  users: '++id, name, email, password, role, isAdmin',
-});
-
-const { users } = db;
+import axios from 'axios';
+import { getUserInfo } from '../../localStorage';
 
 const UsersForm = () => {
-  const allUsers = useLiveQuery(() => users.toArray());
-  console.log(allUsers);
-
   const { state, dispatch } = useContext(StoreContext);
-  const { db } = state;
+  const { token } = getUserInfo();
+  const { users, isAuthenticated, loading, error } = state;
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+
   const [errorMessage, setErrorMessage] = useState('');
-  console.log(username, email, password, role);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -30,16 +20,53 @@ const UsersForm = () => {
       setErrorMessage('Please fill in all the fields');
       return;
     }
-    if (role === 'Admin') {
-      setIsAdmin(true);
+    const user = {
+      username,
+      email,
+      password,
+      role,
+    };
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/register',
+        user
+      );
+      dispatch({ type: 'REGISTER_SUCCESS', payload: response.data });
+      setErrorMessage(response.data.message);
+    } catch (err) {
+      dispatch({
+        type: 'REGISTER_FAIL',
+        playload: err.message,
+      });
+      if (err.message === 'Request failed with status code 409') {
+        setErrorMessage('User already exist');
+      } else if (err.message === 'Request failed with status code 500') {
+        console.log(err.message);
+        setErrorMessage('Server error: Email already exist');
+      } else {
+        console.log(err.message);
+        setErrorMessage(err.message);
+      }
     }
-    await users.add({
-      username: username,
-      email: email,
-      password: password,
-      role: role,
-      isAdmin: isAdmin,
-    });
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const fetchUsers = async () => {
+    try {
+      const response = await axios({
+        url: 'http://localhost:5000/api/users/',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          AUthorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -49,6 +76,7 @@ const UsersForm = () => {
       </section>
       <section className="regieter-form">
         <form onSubmit={handleRegister}>
+          <p className="error">{errorMessage}</p>
           <input
             type="text"
             className="form-input"
@@ -87,7 +115,6 @@ const UsersForm = () => {
           <button className="register-btn" type="submit">
             Register
           </button>
-          <p>{errorMessage}</p>
         </form>
       </section>
     </div>

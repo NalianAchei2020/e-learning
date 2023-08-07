@@ -1,8 +1,9 @@
 export const initialState = {
-  users: JSON.parse(localStorage.getItem('users')) || [],
-  isAdmin: false,
-  db: null,
+  users: JSON.parse(localStorage.getItem('users')) || null,
+  isAuthenticated: false,
+  loading: true,
   error: null,
+  loginName: localStorage.getItem('loginName') || '',
   reviewCount: parseInt(localStorage.getItem('reviewCount'), 10) || 5,
   //Send a review to code reviewer
   completedTasks: localStorage.getItem('completedTasks')
@@ -62,8 +63,54 @@ function reducer(state, action) {
       return { ...state, reviewCount: action.payload };
     case 'DECREMENT_REVIEW_COUNT':
       return { ...state, reviewCount: state.reviewCount - 1 };
-    case 'ADD_USER':
-      return { ...state, users: action.payload };
+    case 'LOGIN_SUCCESS':
+      return {
+        ...state,
+        users: action.payload,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      };
+    case 'LOGIN_NAME':
+      const user = action.payload;
+      localStorage.setItem('loginName', JSON.stringify(user));
+      return {
+        ...state,
+        loginName: user,
+      };
+    case 'REGISTER_SUCCESS':
+      return {
+        ...state,
+        users: action.payload,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      };
+    case 'LOGIN_FAILURE':
+      return {
+        ...state,
+        users: null,
+        isAuthenticated: false,
+        loading: true,
+        error: action.payload,
+      };
+    case 'REGISTER_FAILURE':
+      return {
+        ...state,
+        users: null,
+        isAuthenticated: false,
+        loading: true,
+        error: action.payload,
+      };
+    case 'AUTH_ERROR':
+    case 'LOGOUT':
+      return {
+        ...state,
+        users: null,
+        isAuthenticated: false,
+        loading: false,
+        error: action.payload,
+      };
     case 'ADD_COMPLETED_TASK':
       const newTask = {
         taskIndex: action.payload.taskIndex,
@@ -152,10 +199,6 @@ function reducer(state, action) {
         JSON.stringify(newSubmitProject)
       );
       return { ...state, submitProjectForm: newSubmitProject };
-    case 'SET_DB':
-      return { ...state, db: action.payload };
-    case 'SET_ERROR':
-      return { ...state, error: action.payload };
     default:
       return state;
   }
