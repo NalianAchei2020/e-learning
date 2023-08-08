@@ -33,24 +33,19 @@ const HomeProgress = () => {
   }, [statusOne]);
 
   useEffect(() => {
-    // Retrieve the status state from localStorage
-    const storedStatus = localStorage.getItem('statusOne');
-    if (storedStatus) {
-      JSON.parse(storedStatus);
-    } else {
-      const totalTasks = works.reduce(
-        (sum, module) =>
-          sum +
-          module.blocks.reduce(
-            (sum, block) =>
-              sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
-            0
-          ),
-        0
-      );
-      const initialStatus = new Array(totalTasks).fill('Not Started');
-      dispatch({ type: 'INIT', payload: initialStatus });
-    }
+    //setting initial status
+    const totalTasks = works.reduce(
+      (sum, module) =>
+        sum +
+        module.blocks.reduce(
+          (sum, block) =>
+            sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
+          0
+        ),
+      0
+    );
+    const initialStatus = new Array(totalTasks).fill('Not Started');
+    dispatch({ type: 'INIT', payload: initialStatus });
   }, [works]);
   //change the state of request review
   useEffect(() => {
@@ -255,9 +250,14 @@ const HomeProgress = () => {
                                         : ''
                                     }`}
                                   >
-                                    {clicked && task.type === 'Lesson'
+                                    {clicked &&
+                                    task.type === 'Lesson' &&
+                                    statusOne[task.taskIndex] !== 'undefined'
                                       ? `${statusOne[task.taskIndex]}`
-                                      : CLICKED && task.type === 'Project'
+                                      : CLICKED &&
+                                        task.type === 'Project' &&
+                                        statusTwo[task.taskIndex] !==
+                                          'Completed'
                                       ? `${statusTwo[task.taskIndex]}`
                                       : `${task.status}`}
                                   </span>
