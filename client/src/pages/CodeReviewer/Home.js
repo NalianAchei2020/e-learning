@@ -46,11 +46,71 @@ const Home = () => {
         <header>
           <ul className="nav">
             <li>
-              <h5>Code Reviewer's Dashboard</h5>
+              <h4>Code Reviewer's Dashboard</h4>
             </li>
           </ul>
         </header>
         <div className="codereviewer-screen">
+          {selectedTab === 'reviewerAdmin' && (
+            <section className="icon-container">
+              <section className="container-icon home">
+                <a href="/revieweradmin">
+                  <div className="image">
+                    <img
+                      src="Images/home2.png"
+                      className="image-icon"
+                      alt="icon"
+                    />
+                  </div>
+                  <div className="text">
+                    <h3>Home</h3>
+                  </div>
+                </a>
+              </section>
+              <section className="container-icon home">
+                <a href="/reviewcode">
+                  <div className="image">
+                    <img
+                      src="Images/reviewcode.png"
+                      className="image-icon"
+                      alt="icon"
+                    />
+                  </div>
+                  <div className="text">
+                    <h3>Review Code</h3>
+                  </div>
+                </a>
+              </section>
+              <section className="container-icon home">
+                <a href="#assembly">
+                  <div className="image">
+                    <img
+                      src="Images/join.png"
+                      className="image-icon"
+                      alt="icon"
+                    />
+                  </div>
+                  <div className="text">
+                    <h3>Join Assembly</h3>
+                  </div>
+                </a>
+              </section>
+              <section className="container-icon home">
+                <a href="#referfriend">
+                  <div className="image">
+                    <img
+                      src="Images/refer.png"
+                      className="image-icon"
+                      alt="icon"
+                    />
+                  </div>
+                  <div className="text">
+                    <h3>Refer a Friend</h3>
+                  </div>
+                </a>
+              </section>
+            </section>
+          )}
           {selectedTab === 'ReviewCode' && <CodeReviewer />}
         </div>
       </main>

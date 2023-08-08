@@ -16,6 +16,7 @@ function App() {
             <Route path="/" element={<Student />} />
             <Route path="/progress-section-link" element={<Student />} />
             <Route path="/attendance-section-link" element={<Student />} />
+            <Route path="/refer-section-link" element={<Student />} />
             <Route path="/codereviewer" element={<Home />} />
             <Route path="/reviewcode" element={<Home />} />
             <Route path="/revieweradmin" element={<Home />} />

@@ -4,6 +4,7 @@ import DashboardSection from './dashboard_section';
 import Attendance from './attendance';
 import HomeProgress from './Progress_section/home';
 import RequestReviewForm from './Progress_section/requestReviewForm';
+import Refer from './refer';
 
 const Student = () => {
   //accessing tasks in a useState
@@ -65,8 +66,8 @@ const Student = () => {
           </ul>
           <ul className="list">
             <a
-              href="/attendance-section-link"
-              onClick={() => handleNavigationClick('attendance-section')}
+              href="/refer-section-link"
+              onClick={() => handleNavigationClick('refer-section')}
             >
               <li>
                 <i className="fa fa-calendar" aria-hidden="true"></i>
@@ -108,6 +109,7 @@ const Student = () => {
           {/*Attendance section */}
           {selectedSection === 'attendance-section' && <Attendance />}
           {selectedSection === 'requestReviewForm' && <RequestReviewForm />}
+          {selectedSection === 'refer-section' && <Refer />}
         </section>
       </main>
     </div>
