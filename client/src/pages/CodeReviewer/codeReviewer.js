@@ -23,6 +23,10 @@ const CodeReviewer = () => {
   };
   return (
     <>
+      <div className="codeReview-progress">
+        <span className="progress m-2"></span>
+        <h5>25% Engagement</h5>
+      </div>
       <table className="table mt-5">
         <thead>
           <tr>
