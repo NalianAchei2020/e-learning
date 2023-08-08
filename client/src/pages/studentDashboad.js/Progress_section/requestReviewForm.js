@@ -24,6 +24,8 @@ const RequestReviewForm = ({ selectedTask, onTaskSubmit }) => {
 
   return (
     <div className="requestForm">
+      <h2 className="mb-4">Program Activity Completion Form</h2>
+      <h4 className="mb-5">Project Submission</h4>
       {selectedTask ? <p>{selectedTask.taskName}</p> : <p>No task selected</p>}
       <form onSubmit={handleSubmit}>
         <label>Activity Completed</label>
