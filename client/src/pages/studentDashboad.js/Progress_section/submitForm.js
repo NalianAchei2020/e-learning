@@ -22,9 +22,9 @@ const SubmitForm = ({ selectedTask, onProjectSubmit }) => {
     onProjectSubmit(submitprojectLink, selectedTask.taskIndex);
   };
   return (
-    <div>
-      <h1>Program Activity Completion Form</h1>
-      <h4>Project Submission</h4>
+    <div className="requestForm submitform">
+      <h2 className="mb-4">Program Activity Completion Form</h2>
+      <h4 className="mb-5">Project Submission</h4>
       <section>
         <span>
           You've finished another exercise - Awesome! Please submit the below to
