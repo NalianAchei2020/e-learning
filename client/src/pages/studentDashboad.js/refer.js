@@ -2,8 +2,8 @@ import React from 'react';
 
 const Refer = () => {
   return (
-    <div>
-      <article className="message">
+    <div className="codereviewer-screen">
+      <article className="message msg">
         <h4 className="m-3">Refer a Friend Now</h4>
         <p className="m-3">
           It’s great to hear you would recommend Naltech to a friend. Did you
