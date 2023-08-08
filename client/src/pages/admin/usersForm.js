@@ -4,13 +4,13 @@ import axios from 'axios';
 import { getUserInfo } from '../../localStorage';
 
 const UsersForm = () => {
-  const { state, dispatch } = useContext(StoreContext);
+  const { dispatch } = useContext(StoreContext);
   const { token } = getUserInfo();
-  const { users, isAuthenticated, loading, error } = state;
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const [Users, setUsers] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -63,7 +63,7 @@ const UsersForm = () => {
           AUthorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
+      setUsers(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -72,9 +72,35 @@ const UsersForm = () => {
   return (
     <div className="register">
       <section className="display-users">
-        <table></table>
+        <h3 className="text-center mt-3">All Users</h3>
+        <table className="table table-striped table-hover table-bordered table-responsive-sm mt-3">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Delete</th>
+              <th>Update</th>
+            </tr>
+            {Users.map((user) => (
+              <tr>
+                <td>{user.username}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button className="btn btn-danger dan">Delete</button>
+                </td>
+                <td>
+                  <button className="btn btn-success">Update</button>
+                </td>
+              </tr>
+            ))}
+          </thead>
+        </table>
       </section>
+      <br />
       <section className="regieter-form">
+        <h3 className="header">Register a New User to the System</h3>
         <form onSubmit={handleRegister}>
           <p className="error">{errorMessage}</p>
           <input

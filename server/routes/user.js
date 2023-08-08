@@ -20,6 +20,6 @@ usersRouter.delete('/:id', verifyUser, deleteUser);
 //get
 usersRouter.get('/:id', verifyUser, getUsers);
 //get all
-usersRouter.get('/', verifyUser, getallusers);
+usersRouter.get('/', getallusers);
 
 export default usersRouter;
