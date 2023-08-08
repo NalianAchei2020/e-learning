@@ -80,7 +80,9 @@ const Student = () => {
       <main>
         <header>
           <ul className="nav">
-            <li>Logo</li>
+            <li>
+              <h4>Student's Dashboard</h4>
+            </li>
             <li>
               <a href="/reviewerdashboard">Code Reviewer</a>
             </li>

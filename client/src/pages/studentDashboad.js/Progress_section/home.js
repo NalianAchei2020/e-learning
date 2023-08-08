@@ -9,6 +9,7 @@ import { StoreContext } from '../../../Context/store';
 import SubmitForm from './submitForm';
 const HomeProgress = () => {
   const { state, dispatch } = useContext(StoreContext);
+  const { loginName } = state;
   //get state
   const {
     statusOne,
@@ -152,7 +153,7 @@ const HomeProgress = () => {
     <div>
       {mainPage && (
         <section className="progress-section">
-          <h4>StudentName progress</h4>
+          <h4>{loginName} progress</h4>
           <section>
             <article className="stat-progress d-flex flex-row justify-content-between bg-white">
               <div>
