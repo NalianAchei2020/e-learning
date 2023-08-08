@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { StoreContext } from '../Context/store';
-import { removeCompletedTask } from '../Context/reducer';
+import { StoreContext } from '../../Context/store';
+import { removeCompletedTask } from '../../Context/reducer';
 const CodeReviewer = () => {
   const { state, dispatch } = useContext(StoreContext);
   const { completedTasks } = state;
@@ -23,7 +23,7 @@ const CodeReviewer = () => {
   };
   return (
     <>
-      <table className="table">
+      <table className="table mt-5">
         <thead>
           <tr>
             <th>Task Name</th>

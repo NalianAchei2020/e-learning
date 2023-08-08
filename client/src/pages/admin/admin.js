@@ -57,7 +57,7 @@ const Admin = () => {
         <header>
           <ul className="nav">
             <li>
-              <h5>Admin</h5>
+              <h5>Admin's Dashboard</h5>
             </li>
           </ul>
         </header>
