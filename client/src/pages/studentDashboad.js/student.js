@@ -82,7 +82,7 @@ const Student = () => {
           <ul className="nav">
             <li>Logo</li>
             <li>
-              <a href="/codereviewer">Code Reviewer</a>
+              <a href="/reviewerdashboard">Code Reviewer</a>
             </li>
             <li>
               <a href="/admin">Admin</a>

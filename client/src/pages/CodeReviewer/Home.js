@@ -20,8 +20,8 @@ const Home = () => {
         <ul className="adminlist">
           <li>
             <a
-              onClick={() => handleNavigationTab('reviewerAdmin')}
-              href="/revieweradmin"
+              onClick={() => handleNavigationTab('CodeReviewerAdmin')}
+              href="/reviewerdashboard"
             >
               Home
             </a>
@@ -51,10 +51,10 @@ const Home = () => {
           </ul>
         </header>
         <div className="codereviewer-screen">
-          {selectedTab === 'reviewerAdmin' && (
+          {selectedTab === 'CodeReviewerAdmin' && (
             <section className="icon-container">
               <section className="container-icon home">
-                <a href="/revieweradmin">
+                <a href="/codereviewer">
                   <div className="image">
                     <img
                       src="Images/home2.png"

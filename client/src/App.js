@@ -17,9 +17,8 @@ function App() {
             <Route path="/progress-section-link" element={<Student />} />
             <Route path="/attendance-section-link" element={<Student />} />
             <Route path="/refer-section-link" element={<Student />} />
-            <Route path="/codereviewer" element={<Home />} />
+            <Route path="/reviewerdashboard" element={<Home />} />
             <Route path="/reviewcode" element={<Home />} />
-            <Route path="/revieweradmin" element={<Home />} />
             <Route path="/requestReviewForm" element={<RequestReviewForm />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/performance" element={<Admin />} />
