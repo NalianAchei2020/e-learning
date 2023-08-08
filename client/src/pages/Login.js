@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const { state, dispatch } = useContext(StoreContext);
+  const { dispatch } = useContext(StoreContext);
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [errMessage, setErrMessage] = useState('');
@@ -28,7 +28,6 @@ const Login = () => {
       const message = response.data.message;
       dispatch({ type: 'LOGIN_NAME', payload: data.username });
       setErrMessage(message);
-      console.log(data.username);
       navigate('/progress-section-link');
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.message });
@@ -38,7 +37,6 @@ const Login = () => {
         setErrMessage('Wrong email or password!');
       } else {
         setErrMessage(err.message);
-        console.log(err);
       }
     }
   };

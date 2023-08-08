@@ -33,6 +33,7 @@ const UsersForm = () => {
       );
       dispatch({ type: 'REGISTER_SUCCESS', payload: response.data });
       setErrorMessage(response.data.message);
+      window.location.reload();
     } catch (err) {
       dispatch({
         type: 'REGISTER_FAIL',
@@ -44,7 +45,6 @@ const UsersForm = () => {
         console.log(err.message);
         setErrorMessage('Server error: Email already exist');
       } else {
-        console.log(err.message);
         setErrorMessage(err.message);
       }
     }
@@ -65,7 +65,7 @@ const UsersForm = () => {
       });
       setUsers(response.data);
     } catch (err) {
-      console.log(err);
+      setErrorMessage(err.message);
     }
   };
 
