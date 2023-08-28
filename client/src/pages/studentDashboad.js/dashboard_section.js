@@ -4,12 +4,15 @@ import { StoreContext } from '../../Context/store';
 const DashboardSection = () => {
   const { state } = useContext(StoreContext);
   const { loginName } = state;
+  //remove code from loginName
+  const string = loginName;
+  const result = string.replace(/"/g, '');
   return (
     <div>
       <section className="dashboard-section">
         <section className="message">
           <article>
-            <h4 className="m-4">Hi {loginName}, Welcome Back</h4>
+            <h4 className="m-4">Hi {result}, Welcome Back</h4>
           </article>
         </section>
         <section className="sec1 mb-5">
