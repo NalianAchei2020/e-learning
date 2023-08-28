@@ -13,7 +13,7 @@ function App() {
       <StoreProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<Student />} />
+            <Route path="/dashboard-section" element={<Student />} />
             <Route path="/progress-section-link" element={<Student />} />
             <Route path="/attendance-section-link" element={<Student />} />
             <Route path="/refer-section-link" element={<Student />} />
@@ -24,7 +24,7 @@ function App() {
             <Route path="/performance" element={<Admin />} />
             <Route path="//adminusers" element={<Admin />} />
             <Route path="//pairstudent" element={<Admin />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
           </Routes>
         </Router>
       </StoreProvider>

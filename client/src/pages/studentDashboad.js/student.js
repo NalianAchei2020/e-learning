@@ -30,7 +30,7 @@ const Student = () => {
           <h5>Home</h5>
           <ul className="list">
             <a
-              href="/"
+              href="/dashboard-section"
               onClick={() => handleNavigationClick('dashboard-section')}
             >
               <li>
@@ -84,13 +84,9 @@ const Student = () => {
               <h4>Student's Dashboard</h4>
             </li>
             <li>
-              <a href="/reviewerdashboard">CodeReviewer</a>
-            </li>
-            <li>
-              <a href="/admin">Admin</a>
-            </li>
-            <li>
-              <a href="/login">Login</a>
+              <a href="/" style={{ color: 'blue', textDecoration: 'none' }}>
+                Signout
+              </a>
             </li>
           </ul>
         </header>

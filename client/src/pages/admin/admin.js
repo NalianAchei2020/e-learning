@@ -59,6 +59,11 @@ const Admin = () => {
             <li>
               <h5>Admin's Dashboard</h5>
             </li>
+            <li>
+              <a href="/" style={{ color: 'blue', textDecoration: 'none' }}>
+                Signout
+              </a>
+            </li>
           </ul>
         </header>
         {selectedLink === 'HomeAdmin' && <Home />}

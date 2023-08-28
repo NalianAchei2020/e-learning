@@ -48,6 +48,11 @@ const Home = () => {
             <li>
               <h4>Code Reviewer's Dashboard</h4>
             </li>
+            <li>
+              <a href="/" style={{ color: 'blue', textDecoration: 'none' }}>
+                Signout
+              </a>
+            </li>
           </ul>
         </header>
         <div className="codereviewer-screen">

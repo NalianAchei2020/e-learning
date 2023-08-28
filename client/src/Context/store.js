@@ -26,7 +26,7 @@ export const StoreProvider = ({ children }) => {
     ).length;
     setCompletedT(completedTasks);
     setTotal(totalTasks);
-    const percentage = (completedTasks / totalTasks) * 100;
+    const percentage = ((completedTasks / totalTasks) * 100).toFixed(1);
     setProgress(percentage);
   }, [state.works]);
   const updateTaskStatus = (taskIndex, newStatus) => {

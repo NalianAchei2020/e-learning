@@ -58,21 +58,21 @@ const DashboardSection = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>8:00 - 8:30</td>
+                  <td>8:00 am - 8:30 am</td>
                   <td>Morning Meeting</td>
                   <td>
                     <button className="btn btn-success">Join Meeting</button>
                   </td>
                 </tr>
                 <tr>
-                  <td>8:00 - 8:30</td>
+                  <td>10:30 am - 3:00 pm</td>
                   <td>program Time</td>
                   <td>
                     <button className="btn btn-success">Join Meeting</button>
                   </td>
                 </tr>
                 <tr>
-                  <td>8:00 - 8:30</td>
+                  <td> 400 pm - 4:15 pm</td>
                   <td>Standup Meeting</td>
                   <td>
                     <button className="btn btn-success">Join Meeting</button>

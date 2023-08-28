@@ -39,7 +39,7 @@ const Login = () => {
         navigate('/reviewerdashboard');
       }
       if (data.role === 'Student') {
-        navigate('/progress-section-link');
+        navigate('/dashboard-section');
       }
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.message });
