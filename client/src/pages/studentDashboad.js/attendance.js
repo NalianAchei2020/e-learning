@@ -7,7 +7,7 @@ const Attendance = () => {
         <article className=" message">
           <p className="mb-2">
             Here is your dedicated page to see your full attendance history and
-            engagement history at Microverse!
+            engagement history at Naltech!
           </p>
           <p className="mb-2">
             If you will be out for longer than a day and a half for local or
@@ -22,7 +22,7 @@ const Attendance = () => {
           <p className="mb-2">
             We use Zoom for systematically detecting absences. You can check
             here for a reminder about our{' '}
-            <a href="#policy">Attendance Policy</a> at Microverse.
+            <a href="#policy">Attendance Policy</a> at Naltech.
           </p>
           <p className="mb-2">
             If you see an absence on this page that you think is incorrect,
