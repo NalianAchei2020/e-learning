@@ -84,16 +84,13 @@ const Student = () => {
               <h4>Student's Dashboard</h4>
             </li>
             <li>
-              <a href="/reviewerdashboard">Code Reviewer</a>
+              <a href="/reviewerdashboard">CodeReviewer</a>
             </li>
             <li>
               <a href="/admin">Admin</a>
             </li>
             <li>
               <a href="/login">Login</a>
-            </li>
-            <li>
-              <a href="#signout">Signout</a>
             </li>
           </ul>
         </header>
