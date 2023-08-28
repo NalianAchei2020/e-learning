@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
-import { works } from './data';
 import { useNavigate } from 'react-router-dom';
 import RequestReviewForm from './requestReviewForm';
 import { addCompletedTaskWithLink } from '../../../Context/reducer';
@@ -8,17 +7,14 @@ import { submitCompletedTasks } from '../../../Context/reducer';
 import { StoreContext } from '../../../Context/store';
 import SubmitForm from './submitForm';
 const HomeProgress = () => {
-  const { state, dispatch } = useContext(StoreContext);
-  const { loginName } = state;
+  const { state, dispatch, updateTaskStatus, progress, completedT, total } =
+    useContext(StoreContext);
+  const { loginName, works } = state;
+  //remove code from loginName
+  const string = loginName;
+  const result = string.replace(/"/g, '');
   //get state
-  const {
-    statusOne,
-    statusTwo,
-    CLICKED,
-    mainPage,
-    requestReviewForm,
-    submitProjectForm,
-  } = state;
+  const { mainPage, requestReviewForm, submitProjectForm } = state;
 
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
@@ -29,46 +25,6 @@ const HomeProgress = () => {
     setTasks(allTasks);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('statusOne', JSON.stringify(statusOne));
-  }, [statusOne]);
-
-  useEffect(() => {
-    //setting initial status
-    const totalTasks = works.reduce(
-      (sum, module) =>
-        sum +
-        module.blocks.reduce(
-          (sum, block) =>
-            sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
-          0
-        ),
-      0
-    );
-    const initialStatus = new Array(totalTasks).fill('Not Started');
-    dispatch({ type: 'INIT', payload: initialStatus });
-  }, [works]);
-  //change the state of request review
-  useEffect(() => {
-    const totalTasks = works.reduce(
-      (sum, module) =>
-        sum +
-        module.blocks.reduce(
-          (sum, block) =>
-            sum + block.days.reduce((sum, day) => sum + day.tasks.length, 0),
-          0
-        ),
-      0
-    );
-    const initialStatus = new Array(totalTasks).fill('Request Review');
-    dispatch({ type: 'INITIAL', payload: initialStatus });
-  }, [works]);
-
-  const submit = (index) => {
-    dispatch({ type: 'COMPLETE', payload: index });
-    setclicked(true);
-    window.location.reload();
-  };
   //active module
   const [activeModuleIndex, setActiveModuleIndex] = useState(0);
   //review
@@ -77,16 +33,9 @@ const HomeProgress = () => {
     setActiveModuleIndex(index);
   };
 
-  const [clicked, setclicked] = useState(
-    localStorage.getItem('clicked')
-      ? JSON.parse(localStorage.getItem('clicked'))
-      : false
-  );
-  useEffect(() => {
-    localStorage.setItem('clicked', JSON.stringify(clicked));
-  }, [clicked]);
   //form section
   const navigate = useNavigate();
+
   //click to request review form
   const request = (taskId) => {
     setSelectedTask(tasks.find((task) => task.taskIndex === taskId));
@@ -118,11 +67,11 @@ const HomeProgress = () => {
         selectedTask.taskIndex,
         selectedTask.taskName,
         selectedTask.taskLink,
-        pullRequestLink
+        pullRequestLink,
+        result
       )
     );
-    dispatch({ type: 'PENDING', payload: index });
-    dispatch({ type: 'CLICKED', payload: true });
+    updateTaskStatus(index, 'Pending');
 
     dispatch({ type: 'MAINPAGE', payload: true });
     dispatch({ type: 'REQUESTFORM', payload: false });
@@ -143,17 +92,24 @@ const HomeProgress = () => {
         submitPullRequestLink
       )
     );
-    dispatch({ type: 'COMPLETED2', payload: index });
-    dispatch({ type: 'CLICKED', payload: true });
+    updateTaskStatus(index, 'Completed');
 
     dispatch({ type: 'MAINPAGE', payload: true });
     dispatch({ type: 'SUBMITPROJECT', payload: false });
   };
+  // submit lessons
+  const Submit = (taskIndex) => {
+    updateTaskStatus(taskIndex, 'Completed');
+    window.location.reload();
+  };
+
+  //track progress
+
   return (
     <div>
       {mainPage && (
         <section className="progress-section">
-          <h4>{loginName} progress</h4>
+          <h4>{result} progress</h4>
           <section>
             <article className="stat-progress d-flex flex-row justify-content-between bg-white">
               <div>
@@ -165,13 +121,29 @@ const HomeProgress = () => {
                     </span>
                   </li>
                 </ul>
-                <span className="progress"></span>
+                <span className="progress">
+                  <span
+                    className="progress-bar"
+                    role="progressbar"
+                    aria-valuenow={progress}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style={{ width: progress }}
+                  >
+                    {progress}%
+                  </span>
+                </span>
+                <br />
+                <br />
+                <p style={{ color: 'blue' }}>{progress}%</p>
               </div>
               <div className="repeated-module">
                 <ul className="d-flex flex-column gap-2">
                   <li className="title-bold">Core requirements</li>
                   <li>(For this block)</li>
-                  <li>14 / 28</li>
+                  <li>
+                    {completedT}/{total}
+                  </li>
                   <li>Completed</li>
                 </ul>
               </div>
@@ -245,22 +217,12 @@ const HomeProgress = () => {
                                     className={`status ${
                                       task.type === 'Project'
                                         ? 'special-class'
-                                        : statusOne[task.taskIndex] ===
-                                          'Completed'
+                                        : task.status === 'Completed'
                                         ? 'complete'
                                         : ''
                                     }`}
                                   >
-                                    {clicked &&
-                                    task.type === 'Lesson' &&
-                                    statusOne[task.taskIndex] !== 'undefined'
-                                      ? `${statusOne[task.taskIndex]}`
-                                      : CLICKED &&
-                                        task.type === 'Project' &&
-                                        statusTwo[task.taskIndex] !==
-                                          'Completed'
-                                      ? `${statusTwo[task.taskIndex]}`
-                                      : `${task.status}`}
+                                    {task.status}
                                   </span>
                                 </td>
                                 <td>
@@ -288,15 +250,14 @@ const HomeProgress = () => {
                                           id={task.taskIndex}
                                           onClick={() => {
                                             if (task.type === 'Lesson') {
-                                              submit(task.taskIndex);
+                                              Submit(task.taskIndex);
                                             }
                                             if (task.type === 'Project') {
                                               request(task.taskIndex);
                                             }
                                             if (
                                               task.type === 'Project' &&
-                                              statusTwo[task.taskIndex] ===
-                                                'Submit'
+                                              task.status === 'Submit'
                                             ) {
                                               submitProject(task.taskIndex);
                                             }
@@ -306,19 +267,14 @@ const HomeProgress = () => {
                                           {task.type === 'Exercise'
                                             ? 'Submit'
                                             : task.type === 'Project' &&
-                                              statusTwo[task.taskIndex] ===
-                                                'Request Review'
+                                              task.status === 'Request Review'
                                             ? 'Request Review'
                                             : task.type === 'Project' &&
-                                              statusTwo[task.taskIndex] ===
-                                                'Required Changes'
+                                              task.status === 'Required Changes'
                                             ? 'Request Review'
-                                            : clicked &&
-                                              statusOne[task.taskIndex] ===
-                                                'Completed'
+                                            : task.status === 'Completed'
                                             ? 'Undo Submission'
-                                            : statusTwo[task.taskIndex] ===
-                                                'Pending' &&
+                                            : task.status === 'Pending' &&
                                               task.type === 'Project'
                                             ? 'View Submssion'
                                             : 'submit'}
