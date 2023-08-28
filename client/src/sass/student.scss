@@ -1,0 +1,183 @@
+aside {
+  width: 25%;
+  padding: 2em;
+  color: #e76363;
+  text-align: center;
+  background-color: rgb(130, 130, 226);
+  overflow-y: scroll;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  .list a {
+    display: flex;
+    gap: 1em;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+
+    li {
+      color: #fff;
+      font-size: 1.1rem;
+      padding-block: 1em;
+    }
+  }
+
+  h5 {
+    font-size: 1.3rem;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+main {
+  width: 75%;
+  background-color: #d6d6d6;
+  margin-left: 25%;
+  height: 100%;
+
+  .all {
+    padding: 1em;
+  }
+
+  header {
+    background-color: #fff;
+    width: 100%;
+    padding: 2em;
+    margin-inline: 0 !important;
+  }
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.dashboard-section {
+  margin-bottom: 5em;
+}
+
+.message {
+  height: auto;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  border: none;
+  margin-block: 2em;
+  padding: 2em;
+}
+.stat {
+  padding: 2em;
+  border-radius: 5px;
+
+  div {
+    background-color: rgb(214, 214, 214);
+    padding: 1em;
+    border-radius: 8px;
+  }
+}
+
+.stat-progress {
+  padding: 2em;
+  border-radius: 5px;
+  margin-block: 1em;
+  div {
+    background-color: rgb(214, 214, 214);
+    padding: 1em;
+    border-radius: 8px;
+  }
+}
+
+.title-bold {
+  font-size: 1rem;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.title-stat {
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.title-meeting {
+  font-size: 1rem;
+  font-weight: 900;
+}
+.t-head {
+  background-color: #fff !important;
+}
+
+.btn {
+  background-color: rgb(130, 130, 226) !important;
+  border: none !important;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.dropDown-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(130, 130, 226);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.status {
+  background-color: rgb(130, 130, 226) !important;
+  border-radius: 5px;
+  color: #fff !important;
+  padding: 0.2em;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.daytime {
+  text-align: center;
+  background-color: rgb(214, 214, 214);
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding-block: 1em;
+}
+.special-class {
+  background-color: #e76363 !important;
+}
+
+.accordion-button {
+  background-color: #fff !important;
+}
+
+.accordion {
+  border: 1px solid #000;
+  margin-bottom: 1em;
+}
+
+.complete {
+  background-color: rgba(23, 224, 23, 0.815) !important;
+}
+
+.submit {
+  background-color: green;
+  color: white;
+}
+.requestForm {
+  margin: 2em;
+}
+
+.feedback {
+  margin-top: 5px;
+}
+
+.msg {
+  padding-block: 5em;
+}

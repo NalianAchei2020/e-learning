@@ -1,0 +1,86 @@
+.adminlist {
+  li {
+    margin-bottom: 2em;
+
+    a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1.3rem;
+      font-size: 800;
+    }
+  }
+}
+.icon-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  margin: 3em 2em;
+  gap: 2em;
+}
+
+.image-icon {
+  width: 200px;
+  height: 100px;
+}
+
+.container-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block: 3em;
+  border: 2px solid rgb(190, 166, 166);
+  padding: 0.5em;
+  a {
+    text-decoration: none;
+  }
+}
+
+.text {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-btn {
+  position: absolute;
+  right: 25%;
+  width: 150px;
+  height: 50px;
+  background-color: rgb(130, 130, 226);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.regieter-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.heading {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+.register {
+  width: 100%;
+  height: 150vh;
+}
+
+.dan {
+  background-color: rgb(167, 47, 47) !important;
+}
+
+.pairing {
+  margin-left: 8em;
+  margin-block: 3em;
+}
+
+.btn-pair {
+  padding: 10px !important;
+  font-size: 1.3rem !important;
+}
