@@ -5,7 +5,7 @@ const DashboardSection = () => {
   const { state } = useContext(StoreContext);
   const { loginName } = state;
   //remove code from loginName
-  const string = loginName;
+  const string = loginName || '';
   const result = string.replace(/"/g, '');
   return (
     <div>

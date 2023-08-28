@@ -16,6 +16,7 @@ export const works = [
                 time: '30min',
                 type: 'Exercise',
                 status: 'Not Started',
+                collaboration: 'Morning session team',
               },
               {
                 taskIndex: 2,
@@ -26,6 +27,7 @@ export const works = [
                 time: '1h',
                 type: 'Lesson',
                 status: 'Not Started',
+                collaboration: 'Solo',
               },
               {
                 taskIndex: 3,
@@ -35,6 +37,7 @@ export const works = [
                 time: '3h',
                 type: 'Project',
                 status: 'Request Review',
+                collaboration: 'Solo',
               },
               {
                 taskIndex: 4,
@@ -44,6 +47,7 @@ export const works = [
                 time: '15min',
                 type: 'Scrum habits',
                 status: 'Not Started',
+                collaboration: 'StandUp team',
               },
             ],
           },
@@ -58,6 +62,7 @@ export const works = [
                 time: '30min',
                 type: 'Lesson',
                 status: 'Not Started',
+                collaboration: 'Morning Session Team',
               },
               {
                 taskIndex: 6,
@@ -67,6 +72,7 @@ export const works = [
                 time: '2h',
                 type: 'Lesson',
                 status: 'Not Started',
+                collaboration: 'Solo',
               },
               {
                 taskIndex: 7,
@@ -76,6 +82,7 @@ export const works = [
                 time: '3h',
                 type: 'Project',
                 status: 'Request Review',
+                collaboration: 'Solo',
               },
               {
                 taskIndex: 8,
@@ -85,6 +92,142 @@ export const works = [
                 time: '15min',
                 type: 'Scrum habits',
                 status: 'Not Started',
+                collaboration: 'StandUp team',
+              },
+            ],
+          },
+          {
+            date: 'DAY 3',
+            tasks: [
+              {
+                taskIndex: 9,
+                taskName: 'Morning session: Core study skills - part 3',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-javascript/blob/main/books/books_with_es6.md',
+                time: '30min',
+                type: 'Exercise',
+                status: 'Not Started',
+                collaboration: 'Morning Session team',
+              },
+              {
+                taskIndex: 10,
+                taskName: 'CSS grid',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/git-github/git_github_basics.md',
+                time: '1h',
+                type: 'Lesson',
+                status: 'Not Started',
+                collaboration: 'Solo',
+              },
+              {
+                taskIndex: 11,
+                taskName: 'Portfolio: setup and mobile first',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-html-css/blob/main/portfolio/1_setup.md',
+                time: '4h',
+                type: 'Project',
+                status: 'Request Review',
+                collaboration: 'Pair Programming',
+              },
+              {
+                taskIndex: 12,
+                taskName: 'Daily Standup',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/daily-standup.md',
+                time: '15min',
+                type: 'Scrum habits',
+                status: 'Not Started',
+                collaboration: 'StandUp team',
+              },
+            ],
+          },
+          {
+            date: 'DAY 4',
+            tasks: [
+              {
+                taskIndex: 13,
+                taskName: 'Morning session: Core study skills - part 4',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/core-study-skills.md',
+                time: '30min',
+                type: 'Exercise',
+                status: 'Not Started',
+                collaboration: 'Morning session team',
+              },
+              {
+                taskIndex: 14,
+                taskName: 'Pair-programming - record your session',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/code-review/review_your_project.md',
+                time: '4h',
+                type: 'Exercise',
+                status: 'Not Started',
+                collaboration: 'Pair Programming',
+              },
+              {
+                taskIndex: 15,
+                taskName: 'Review your project from trials!',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/pair-programming/record_session.md',
+                time: '30min',
+                type: 'Project',
+                status: 'Request Review',
+                collaboration: 'Pair Programming',
+              },
+              {
+                taskIndex: 16,
+                taskName: 'Daily Standup',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/daily-standup.md',
+                time: '15min',
+                type: 'Scrum habits',
+                status: 'Not Started',
+                collaboration: 'StandUp team',
+              },
+            ],
+          },
+          {
+            date: 'DAY 5',
+            tasks: [
+              {
+                taskIndex: 17,
+                taskName: 'Morning session: Core study skills - part 5',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/core-study-skills.md',
+                time: '30min',
+                type: 'Exercise',
+                status: 'Not Started',
+                collaboration: 'Morning session team',
+              },
+              {
+                taskIndex: 18,
+                taskName: 'Shopping Cart in Javascript',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/code-review/review_your_project.md',
+                time: '4h',
+                type: 'Project',
+                status: 'Request Review',
+                collaboration: 'Solo',
+              },
+              {
+                taskIndex: 19,
+                taskName: 'Jest testing in Javascript',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/pair-programming/record_session.md',
+                time: '30min',
+                type: 'Project',
+                status: 'Request Review',
+                collaboration: 'Pair Programming',
+              },
+              {
+                taskIndex: 20,
+                taskName: 'Daily Standup',
+                taskLink:
+                  'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/daily-standup.md',
+                time: '15min',
+                type: 'Scrum habits',
+                status: 'Not Started',
+                collaboration: 'StandUp team',
               },
             ],
           },
@@ -99,40 +242,44 @@ export const works = [
             date: 'DAY 1',
             tasks: [
               {
-                taskIndex: 9,
+                taskIndex: 21,
                 taskName: 'Morning session: Core study skills - part 3',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-javascript/blob/main/books/books_with_es6.md',
                 time: '30min',
                 type: 'Exercise',
                 status: 'Not Started',
+                collaboration: 'Morning Session team',
               },
               {
-                taskIndex: 10,
+                taskIndex: 22,
                 taskName: 'CSS grid',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/git-github/git_github_basics.md',
                 time: '1h',
                 type: 'Lesson',
                 status: 'Not Started',
+                collaboration: 'Solo',
               },
               {
-                taskIndex: 11,
+                taskIndex: 23,
                 taskName: 'Portfolio: setup and mobile first',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-html-css/blob/main/portfolio/1_setup.md',
                 time: '4h',
                 type: 'Project',
                 status: 'Request Review',
+                collaboration: 'Pair Programming',
               },
               {
-                taskIndex: 12,
+                taskIndex: 24,
                 taskName: 'Daily Standup',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/daily-standup.md',
                 time: '15min',
                 type: 'Scrum habits',
                 status: 'Not Started',
+                collaboration: 'StandUp team',
               },
             ],
           },
@@ -140,40 +287,44 @@ export const works = [
             date: 'DAY 2',
             tasks: [
               {
-                taskIndex: 13,
+                taskIndex: 25,
                 taskName: 'Morning session: Core study skills - part 4',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/core-study-skills.md',
                 time: '30min',
                 type: 'Exercise',
                 status: 'Not Started',
+                collaboration: 'Morning session team',
               },
               {
-                taskIndex: 14,
+                taskIndex: 26,
                 taskName: 'Pair-programming - record your session',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/code-review/review_your_project.md',
                 time: '4h',
                 type: 'Exercise',
                 status: 'Not Started',
+                collaboration: 'Pair Programming',
               },
               {
-                taskIndex: 15,
+                taskIndex: 27,
                 taskName: 'Review your project from trials!',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-transversal-skills/blob/main/pair-programming/record_session.md',
                 time: '30min',
                 type: 'Project',
                 status: 'Request Review',
+                collaboration: 'Pair Programming',
               },
               {
-                taskIndex: 16,
+                taskIndex: 28,
                 taskName: 'Daily Standup',
                 taskLink:
                   'https://github.com/microverseinc/curriculum-professional-skills/blob/main/becoming-a-remote-professional/daily-standup.md',
                 time: '15min',
                 type: 'Scrum habits',
                 status: 'Not Started',
+                collaboration: 'StandUp team',
               },
             ],
           },

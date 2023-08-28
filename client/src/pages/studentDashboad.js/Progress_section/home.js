@@ -11,7 +11,7 @@ const HomeProgress = () => {
     useContext(StoreContext);
   const { loginName, works } = state;
   //remove code from loginName
-  const string = loginName;
+  const string = loginName || '';
   const result = string.replace(/"/g, '');
   //get state
   const { mainPage, requestReviewForm, submitProjectForm } = state;
