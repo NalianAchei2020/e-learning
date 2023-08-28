@@ -19,16 +19,28 @@ const Login = () => {
       password,
     };
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/auth/login',
-        user
-      );
+      const response = await axios('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        data: JSON.stringify(user),
+        withCredentials: true,
+      });
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
       const data = response.data;
       const message = response.data.message;
       dispatch({ type: 'LOGIN_NAME', payload: data.username });
       setErrMessage(message);
-      navigate('/progress-section-link');
+      if (data.role === 'Admin') {
+        navigate('/admin');
+      }
+      if (data.role === 'CodeReviewer') {
+        navigate('/reviewerdashboard');
+      }
+      if (data.role === 'Student') {
+        navigate('/progress-section-link');
+      }
     } catch (err) {
       dispatch({ type: 'LOGIN_FAILURE', payload: err.message });
       if (err.message === 'Request failed with status code 404') {
