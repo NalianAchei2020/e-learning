@@ -2,34 +2,43 @@ import React, { useContext } from 'react';
 import { StoreContext } from '../../Context/store';
 import { removeCompletedTask } from '../../Context/reducer';
 const CodeReviewer = () => {
-  const { state, dispatch } = useContext(StoreContext);
-  const { completedTasks } = state;
+  const { state, dispatch, updateTaskStatus } = useContext(StoreContext);
+  const { completedTasks, codereviewerProgress } = state;
   //approve code review
   const approved = (taskIndex) => {
     dispatch(removeCompletedTask(taskIndex));
-    dispatch({ type: 'SUBMIT', payload: taskIndex });
-    dispatch({ type: 'CLICKED', payload: true });
+    dispatch({ type: 'INCREMENT' });
+    updateTaskStatus(taskIndex, 'Submit');
     window.location.reload();
   };
   //require changes for code review
   const requiredChanges = (taskIndex) => {
     dispatch(removeCompletedTask(taskIndex));
-    dispatch({ type: 'REQUIRED_CHANGES', payload: taskIndex });
-    dispatch({ type: 'CLICKED', payload: true });
-    window.location.reload();
-  };
-  const handleRefresh = () => {
+    dispatch({ type: 'INCREMENT' });
+    updateTaskStatus(taskIndex, 'Required Changes');
     window.location.reload();
   };
   return (
     <>
       <div className="codeReview-progress">
-        <span className="progress m-2"></span>
-        <h5>25% Engagement</h5>
+        <span className="progress m-2">
+          <span
+            className="progress-bar"
+            role="progressbar"
+            aria-valuenow={codereviewerProgress}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{ width: codereviewerProgress }}
+          >
+            {codereviewerProgress}%
+          </span>
+        </span>
+        <h5>{codereviewerProgress}% Engagement</h5>
       </div>
       <table className="table mt-5">
         <thead>
           <tr>
+            <th>Student Name</th>
             <th>Task Name</th>
             <th>Pull Request Link</th>
             <th>Action</th>
@@ -38,6 +47,9 @@ const CodeReviewer = () => {
         <tbody>
           {completedTasks.map((task) => (
             <tr key={task.taskIndex}>
+              <td>
+                <a href={task.taskLink}>{task.studentName}</a>
+              </td>
               <td>
                 <a href={task.taskLink}>{task.taskName}</a>
               </td>
@@ -82,7 +94,6 @@ const CodeReviewer = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={handleRefresh}>Refresh</button>
     </>
   );
 };
