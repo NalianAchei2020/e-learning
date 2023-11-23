@@ -29,11 +29,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 E-COMMERCE SHOP <a name="about-project"></a>
+# 📖 E-LEARNING <a name="about-project"></a>
 
-"E-COMMERCE SHOP" is a fully functional e-commerce developed with react js, node js, mongoDB, jsonwebtoken and cokies
+"E-learning" is a project that helps train web developers remotely by following software development best practices such as pair-programing, collaboration, and code reviewing
 
-_[E-COMMERCE SHOP]_ is React project
+_[E-LEARNING]_ is React project
 
 ## 🛠 Built With <a name="built-with"></a>
 
