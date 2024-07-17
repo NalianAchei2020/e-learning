@@ -28,6 +28,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
 app.use(express.json());
 
 //cookie
