@@ -1,0 +1,25 @@
+@use './student' as *;
+@use './login' as *;
+@use './admin' as *;
+@use './reviewer' as *;
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Lato Black', sans-serif;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
