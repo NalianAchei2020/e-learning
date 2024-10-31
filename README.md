@@ -4,7 +4,7 @@
 
   <br/>
 
-  <h1><b>E-COMMERCE SHOP</b></h1>
+  <h1><b>E-LEARNING</b></h1>
 
 </div>
 
