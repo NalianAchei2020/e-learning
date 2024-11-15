@@ -30,7 +30,8 @@
 
 # 📖 E-LEARNING <a name="about-project"></a>
 
-"E-learning" is a project that helps train web developers remotely by following software development best practices such as pair-programing, collaboration, and code reviewing
+"E-learning" is a project that helps train software developers remotely by following software development best practices such as pair-programing, collaboration, and code-reviewing.
+This platform has three actors: admins, code reviewers, and students. Students access learning resources and products on the student dashboard. They have daily lessons, exercises, and projects. After completing a project, students can request a review by providing a pull request link. The code reviewer evaluates the project and gives feedback. The code reviewer can approve the project or request changes. The student then submits the project to the admin.
 
 _[E-LEARNING]_ is React project
 
@@ -46,11 +47,11 @@ _[E-LEARNING]_ is React project
 
 ### Key Features <a name="key-features"></a>
 
-- E-COMMERCE SHOP
+- E-LEARNING
 
 ## 🚀 Live Demo
 
-- Coming Soon
+- <a href="https://academy-nuxj.onrender.com">Live</a>
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
@@ -58,7 +59,7 @@ To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
-In order to run this project you need:
+To run this project you need:
 
 - Visual Studio Code
 
@@ -105,10 +106,6 @@ You can deploy this project using:
 - Github: [@NalianAchei2020](https://github.com/NalianAchei2020)
 - Linkedin: [Nalian Achei](https://www.linkedin.com/in/nalian-achei-683208275)
 - Twitter: [@NalianAchei](https://twitter.com/NalianAchei?t=E3ePLcJ7B45dBa8SBFIXDg&s=09)
-
-## 🔭 Future Features <a name="future-features"></a>
-
-- Add backend
 
 ## 🤝 Contributing <a name="contributing"></a>
 
