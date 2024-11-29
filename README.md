@@ -5,14 +5,26 @@
   <br/>
   <h1><b>E-LEARNING</b></h1>
 # Login Credentials 
+
+
  ### Admin
+
  - email: admin@gmail.com
+ - 
  - password: Admin@2020
+
+   
  ### Student
+ 
  - email: chiwi2248@gmail.com
+ - 
  - password: Chiwi@2020
+
+   
  ### Code Reviewer
+ 
  - email: ellah@gmail.com
+ - 
 -  password: Ellah@2024
 
 
