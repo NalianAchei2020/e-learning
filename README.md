@@ -7,29 +7,6 @@
   
 </div>
 
-
-# Login Credentials 
-
-
- ### Admin
-
- - email: admin@gmail.com
- - password: Admin@2020
-
-   
- ### Student
- 
- - email: chiwi2248@gmail.com
- - password: Chiwi@2020
-
-   
- ### Code Reviewer
- 
- - email: ellah@gmail.com
--  password: Ellah@2024
-
-
-
 ## 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -55,6 +32,24 @@
 
 "E-learning" is a project that helps train software developers remotely by following software development best practices such as pair-programing, collaboration, and code-reviewing.
 This platform has three actors: admins, code reviewers, and students. Students access learning resources and products on the student dashboard. They have daily lessons, exercises, and projects. After completing a project, students can request a review by providing a pull request link. The code reviewer evaluates the project and gives feedback. The code reviewer can approve the project or request changes. The student then submits the project to the admin.
+
+## Login Credentials 
+
+ ### Admin
+
+ - email: admin@gmail.com
+ - password: Admin@2020
+   
+ ### Student
+ 
+ - email: chiwi2248@gmail.com
+ - password: Chiwi@2020
+
+ ### Code Reviewer
+ 
+ - email: ellah@gmail.com
+-  password: Ellah@2024
+
 
 _[E-LEARNING]_ is React project
 
